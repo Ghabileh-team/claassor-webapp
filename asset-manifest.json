@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.251a5091.chunk.css",
-    "main.js": "/my-app/static/js/main.24fc6235.chunk.js",
-    "main.js.map": "/my-app/static/js/main.24fc6235.chunk.js.map",
-    "runtime-main.js": "/my-app/static/js/runtime-main.e2c37834.js",
-    "runtime-main.js.map": "/my-app/static/js/runtime-main.e2c37834.js.map",
-    "static/js/2.bbbb8277.chunk.js": "/my-app/static/js/2.bbbb8277.chunk.js",
-    "static/js/2.bbbb8277.chunk.js.map": "/my-app/static/js/2.bbbb8277.chunk.js.map",
-    "static/js/3.ccbe6d58.chunk.js": "/my-app/static/js/3.ccbe6d58.chunk.js",
-    "static/js/3.ccbe6d58.chunk.js.map": "/my-app/static/js/3.ccbe6d58.chunk.js.map",
-    "index.html": "/my-app/index.html",
-    "static/css/main.251a5091.chunk.css.map": "/my-app/static/css/main.251a5091.chunk.css.map",
-    "static/js/2.bbbb8277.chunk.js.LICENSE.txt": "/my-app/static/js/2.bbbb8277.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/my-app/static/media/dana-regular.95d30469.woff2",
-    "static/media/showcase1.7f6aa5a4.png": "/my-app/static/media/showcase1.7f6aa5a4.png",
-    "static/media/showcase2.7f6aa5a4.png": "/my-app/static/media/showcase2.7f6aa5a4.png"
+    "main.css": "/claassor-webapp/static/css/main.93204396.chunk.css",
+    "main.js": "/claassor-webapp/static/js/main.24fc6235.chunk.js",
+    "main.js.map": "/claassor-webapp/static/js/main.24fc6235.chunk.js.map",
+    "runtime-main.js": "/claassor-webapp/static/js/runtime-main.10287218.js",
+    "runtime-main.js.map": "/claassor-webapp/static/js/runtime-main.10287218.js.map",
+    "static/js/2.7256d7a3.chunk.js": "/claassor-webapp/static/js/2.7256d7a3.chunk.js",
+    "static/js/2.7256d7a3.chunk.js.map": "/claassor-webapp/static/js/2.7256d7a3.chunk.js.map",
+    "static/js/3.ccbe6d58.chunk.js": "/claassor-webapp/static/js/3.ccbe6d58.chunk.js",
+    "static/js/3.ccbe6d58.chunk.js.map": "/claassor-webapp/static/js/3.ccbe6d58.chunk.js.map",
+    "index.html": "/claassor-webapp/index.html",
+    "static/css/main.93204396.chunk.css.map": "/claassor-webapp/static/css/main.93204396.chunk.css.map",
+    "static/js/2.7256d7a3.chunk.js.LICENSE.txt": "/claassor-webapp/static/js/2.7256d7a3.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/claassor-webapp/static/media/dana-regular.95d30469.woff2",
+    "static/media/showcase1.7f6aa5a4.png": "/claassor-webapp/static/media/showcase1.7f6aa5a4.png",
+    "static/media/showcase2.7f6aa5a4.png": "/claassor-webapp/static/media/showcase2.7f6aa5a4.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.e2c37834.js",
-    "static/js/2.bbbb8277.chunk.js",
-    "static/css/main.251a5091.chunk.css",
+    "static/js/runtime-main.10287218.js",
+    "static/js/2.7256d7a3.chunk.js",
+    "static/css/main.93204396.chunk.css",
     "static/js/main.24fc6235.chunk.js"
   ]
 }
