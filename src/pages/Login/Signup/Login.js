@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "../../../components/Header";
 import { Button, Input, Showcase, theme } from "../../../Styles";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router";
+
 const Parse = require("parse");
 
 const Tabbar = styled.div`
@@ -67,10 +70,12 @@ const FormContainer = styled.div`
 function FormComponent(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
+  const history = useHistory();
   let {
     setHide,
     hide,
@@ -91,17 +96,22 @@ function FormComponent(props) {
       console.log(res);
       if (res.length === 0) {
         setHide(true);
+        setFirst(true);
       } else {
+        Swal.fire({
+          title: "کاربری با اطلاعات وارد شده وجود دارد",
+          text: "لطفا از صحت اطلاعات وارد شده اطمینان حاصل نمایید",
+          confirmButtonText: "باشه",
+        });
       }
     });
   }
 
   function loginFunction() {
     Parse.User.logIn(username, password).then((res) => {
-      console.log(res);
+      history.push("users/dashboard");
     });
   }
-
   function signupFunction() {
     const user = new Parse.User();
     user.set("username", username);
@@ -112,6 +122,12 @@ function FormComponent(props) {
     user.set("Phonenumber", phoneNum);
     user.signUp().then((res) => {
       console.log(res);
+      Swal.fire({
+        title: "حساب کاربری شما با موفقیت ایجاد شد",
+        text: "از این پس به صفحه داشبورد هدایت می شوید",
+        confirmButtonText: "باشه",
+        icon: "success",
+      });
     });
   }
   return (
@@ -121,6 +137,9 @@ function FormComponent(props) {
           onClick={() => {
             setActive(true);
             setHide(false);
+            setFirst(false);
+            setSecond(false);
+            setThird(false);
           }}
           className={active ? "active" : null}
         >
@@ -147,6 +166,7 @@ function FormComponent(props) {
               placeholder="رمز عبور"
             />
             <Button
+              type="submit"
               onClick={loginFunction}
               style={{ alignSelf: "flex-start", marginLeft: "10.75vh" }}
             >
@@ -157,12 +177,6 @@ function FormComponent(props) {
       ) : (
         <>
           <FormContainer>
-            <Input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="کدملی"
-            />
-
             {hide ? (
               <>
                 {first ? (
@@ -177,6 +191,17 @@ function FormComponent(props) {
                       onChange={(e) => setLastname(e.target.value)}
                       placeholder="نام خانوادگی"
                     />
+                    <Button
+                      onClick={() => {
+                        if (firstname && lastname !== "") {
+                          setFirst(false);
+                          setSecond(true);
+                        }
+                      }}
+                      style={{ alignSelf: "flex-start", marginLeft: "10.75vh" }}
+                    >
+                      بعدی
+                    </Button>
                   </>
                 ) : null}
                 {second ? (
@@ -191,23 +216,59 @@ function FormComponent(props) {
                       onChange={(e) => setPhoneNum(e.target.value)}
                       placeholder="شماره تلفن"
                     />
+                    <Button
+                      onClick={() => {
+                        if (email && phoneNum !== "") {
+                          setSecond(false);
+                          setThird(true);
+                        }
+                      }}
+                      style={{ alignSelf: "flex-start", marginLeft: "10.75vh" }}
+                    >
+                      بعدی
+                    </Button>
                   </>
                 ) : null}
                 {third ? (
-                  <Input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="رمزعبور"
-                  />
+                  <>
+                    <Input
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="رمزعبور"
+                    />
+                    <Input
+                      value={rePassword}
+                      onChange={(e) => setRePassword(e.target.value)}
+                      placeholder="رمزعبور"
+                    />
+                    <Button
+                      onClick={() => {
+                        if (password && rePassword !== "") {
+                          signupFunction();
+                        }
+                      }}
+                      style={{ alignSelf: "flex-start", marginLeft: "10.75vh" }}
+                    >
+                      بعدی
+                    </Button>
+                  </>
                 ) : null}
               </>
-            ) : null}
-            <Button
-              onClick={hide ? signupFunction : handleSignup}
-              style={{ alignSelf: "flex-start", marginLeft: "10.75vh" }}
-            >
-              ثبت نام
-            </Button>
+            ) : (
+              <>
+                <Input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="کدملی"
+                />
+                <Button
+                  onClick={handleSignup}
+                  style={{ alignSelf: "flex-start", marginLeft: "10.75vh" }}
+                >
+                  ثبت نام
+                </Button>
+              </>
+            )}
           </FormContainer>
         </>
       )}
@@ -221,6 +282,7 @@ export default function Login() {
   const [first, setFirst] = useState(false);
   const [second, setSecond] = useState(false);
   const [third, setThird] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <Showcase>

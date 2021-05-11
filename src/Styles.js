@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const theme = {
@@ -5,6 +6,7 @@ export const theme = {
   light: "#ffffff",
   second: "#576b88",
   blue: "#3ba1b7",
+  gray: "rgba(196, 196, 196, 0.54)",
 };
 
 export const Button = styled.button`
@@ -16,6 +18,8 @@ export const Button = styled.button`
         ? props.theme.light
         : props.transparent
         ? "transparent"
+        : props.gray
+        ? props.theme.gray
         : props.theme.main};
   margin: 0.5em 1em;
   padding: 0.25em 1em;
@@ -27,9 +31,15 @@ export const Button = styled.button`
       ? "transparent"
       : props.blue
       ? props.theme.blue
+      : props.gray
+      ? props.theme.gray
       : props.theme.light};
   color: ${(props) =>
-    props.light || props.transparent ? "#ffffff" : "#000000"};
+    props.light || props.transparent
+      ? "#ffffff"
+      : props.lightText
+      ? "#fff"
+      : "#000000"};
   font-size: 1em;
   outline: none;
   transition: 0.3s ease-out;
@@ -134,34 +144,8 @@ export const Circle = styled.div`
   opacity: ${(props) => (props.big ? "0.7" : props.medium ? "0.5" : "1")};
 `;
 
-export const Navbar = styled.nav`
-  float: right;
-`;
-export const List = styled.ul`
-  list-style: none;
-  display: flex;
-  text-align: center;
-  a {
-    margin: 0.5em 0.5em;
-    padding: 0.25em 0.5em;
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    text-decoration: none;
-    &:hover {
-      text-shadow: 0 0 3px white;
-    }
-  }
-  li {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
 export const Text = styled.h1`
-  color: white;
+  color: ${(props) => (props.gray ? "#a7a7a7" : "#fff")};
   font-size: 5em;
   text-align: right;
   position: absolute;
@@ -171,6 +155,16 @@ export const Text = styled.h1`
   z-index: 3;
 `;
 
+export const NormalText = styled.h3`
+  color: ${(props) => (props.gray ? "#a7a7a7" : "#fff")};
+  text-align: right;
+  font-family: "dana-regular";
+`;
+export const NormalDescription = styled.p`
+  text-align: right;
+  font-family: "dana-regular";
+  color: ${(props) => (props.gray ? "#a7a7a7" : "#fff")};
+`;
 export const Example = styled.img`
   width: 27vh;
   border: 2px solid white;
@@ -237,6 +231,7 @@ export const Form = styled.div`
   display: flex;
   z-index: 3;
   flex-direction: column;
+  color: white;
   justify-content: center;
   align-items: center;
   transition: 1s ease;
@@ -253,4 +248,87 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 3vw;
+`;
+export const PanelBox = styled.div`
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 2vw;
+
+  /* @media screen and (max-width: 400px) {
+    padding: 2vh;
+  } */
+`;
+export const PanelWindow = styled.div`
+  background-color: #f1f1f1;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  filter: ${(props) => (props.blur ? " blur(2px) " : null)};
+  padding: 3vw;
+  @media screen and (max-width: 400px) {
+    h1 {
+      font-size: 0.5em;
+    }
+  }
+
+  &:before {
+    display: ${(props) => (props.blur ? null : "none")};
+    content: "";
+    position: absolute;
+    top: -3vw;
+    left: -3vw;
+    width: 103%;
+    height: 103%;
+    background-color: black;
+    opacity: 70%;
+    z-index: 2;
+  }
+`;
+
+export const PanelContainer = styled.div`
+  display: flex;
+  height: 100%;
+  width: 80%;
+  padding-top: 3vh;
+`;
+
+export const PanelBigContainer = styled.div`
+  display: flex;
+`;
+
+export const Icon = styled.img`
+  width: ${(props) => (props.small ? "22px" : "25px")};
+  /* transform: translate(25%, 25%); */
+  margin-left: 5px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1024px) {
+    width: ${(props) => (props.small ? "16px" : "22px")};
+  }
+  @media screen and (max-width: 720px) {
+    width: ${(props) => (props.small ? "16px" : "20px")};
+  }
+  @media screen and (max-width: 420px) {
+    width: ${(props) => (props.small ? "16px" : "14px")};
+  }
+`;
+
+export const PanelContentContainer = styled(PanelBox)`
+  flex: 2;
+  background-color: transparent;
+  overflow: hidden;
+  padding: 0 2vw;
+  @media screen and (max-width: 1024px) {
+    padding: 0 1vw 0 0;
+  }
+`;
+
+export const HeaderLogo = styled.img`
+  width: 10vw;
+  object-fit: contain;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;

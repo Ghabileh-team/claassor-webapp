@@ -1,17 +1,30 @@
 import Home from "./pages/Home/Home";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import Login from "./pages/Login/Signup/Login";
 import Schools from "./pages/schools/Schools";
+import PanelDashboard from "./pages/PanelDashboard";
+import PanelArchive from "./pages/PanelArchive";
+import PanelNotificaions from "./pages/PanelNotifications";
+import PanelPlans from "./pages/PanelPlans";
+import BookmarksPage from "./pages/PanelBookmarks";
+import PanelMain from "./pages/PanelMain/PanelMain";
 const Parse = require("parse");
-Parse.serverURL = "https://parse-server-dev-claassor-app.fandogh.cloud/parse";
-Parse.initialize("Claassor-dev-app");
+Parse.serverURL = "http://168.119.206.34:1337/parse";
+Parse.initialize("APPLICATION_ID");
 function App() {
   return (
     <Router>
       <Route exact path="/" component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/schools" component={Schools} />
+
+      {/* <Route path="/users/dashboard" component={PanelDashboard} /> */}
+      <Route path="/users" component={PanelMain} />
+      {/* <Route path="/users/archive" component={PanelArchive} /> */}
+      <Route path="/users/plans" component={PanelPlans} />
+      {/* <Route path="/users/notifications" component={PanelNotificaions} /> */}
+      {/* <Route path="/users/bookmarks" component={BookmarksPage} /> */}
     </Router>
   );
 }

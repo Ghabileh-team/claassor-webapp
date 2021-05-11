@@ -1,11 +1,30 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Header from "../../components/Header";
-import { Showcase, Text, theme, Form, HeroSection } from "../../Styles";
+import {
+  Showcase,
+  Text,
+  theme,
+  Form,
+  HeroSection,
+  Input,
+  Button,
+} from "../../Styles";
 
 const Wrapper = styled.div`
   position: absolute;
-  right: ${(props) => (props.big ? "20%" : props.medium ? "28%" : "20%")};
+  right: ${(props) =>
+    props.light
+      ? props.big
+        ? "60%"
+        : props.medium
+        ? "68%"
+        : "60%"
+      : props.big
+      ? "20%"
+      : props.medium
+      ? "28%"
+      : "20%"};
   top: ${(props) => (props.big ? "25%" : props.medium ? "58%" : "30%")};
   transform: rotate(
     ${(props) => (props.big ? "10deg" : props.medium ? "-15deg" : "-45deg")}
@@ -53,7 +72,12 @@ export default function Schools() {
           <br />
           مدارس
         </Text>
-        <Form></Form>
+        <Form>
+          <h2>ورود به پنل ادمین</h2>
+          <Input placeholder="نام کاربری" />
+          <Input placeholder="رمزعبور" />
+          <Button>ورود</Button>
+        </Form>
       </Showcase>
       <HeroSection light>
         <Wrapper big>
@@ -67,13 +91,13 @@ export default function Schools() {
         </Wrapper>
       </HeroSection>
       <HeroSection>
-        <Wrapper big>
+        <Wrapper light big>
           <Triangle light big></Triangle>
         </Wrapper>
-        <Wrapper medium>
+        <Wrapper light medium>
           <Triangle light medium></Triangle>
         </Wrapper>
-        <Wrapper>
+        <Wrapper light>
           <Triangle light></Triangle>
         </Wrapper>
       </HeroSection>

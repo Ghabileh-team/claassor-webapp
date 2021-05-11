@@ -17,16 +17,16 @@ export default function Home() {
   return (
     <ThemeProvider theme={theme}>
       <Showcase>
-        <Backgound />
-        <Backgound medium />
-        <Backgound big />
-        <Example src={image1} primary />
-        <Example src={image2} />
         <Header />
         <Text>
           کلاسور ؛<br />
           به روز ترین تلفیق <br /> ارتباط <br /> و آموزش
         </Text>
+        <Backgound />
+        <Backgound medium />
+        <Backgound big />
+        <Example src={image1} primary />
+        <Example src={image2} />
       </Showcase>
       <HeroSection light>
         <Circle light big></Circle>
