@@ -67,7 +67,7 @@ export default function PanelMain(props) {
         <PanelHeader />
         <PanelBigContainer>
           <Route path={`${path}/notifications`}>
-            <PanelNotificaions />
+            <PanelNotificaions popup={setShowAddPopUp} />
           </Route>
           <Route path={`${path}/archive`}>
             <PanelArchive />

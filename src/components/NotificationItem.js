@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import userImage from "../assets/Hajitoon.jpg";
+
 import { ReactComponent as Heart } from "../assets/icons/Heart.svg";
 import { ReactComponent as Bookmark } from "../assets/icons/Bookmark.svg";
 import { ReactComponent as Chat } from "../assets/icons/Chat.svg";
-import notificationImage from "../assets/final.jpg";
+import { trackPromise } from "react-promise-tracker";
+import LoadingIndicator from "./LoadingIndicator";
 
 const NotificationLeft = styled.div`
   h3 {
@@ -17,6 +18,7 @@ const NotificationLeft = styled.div`
     font-size: 0.6em;
   }
 `;
+
 const NotificationData = styled.div`
   padding: 2vh;
   background-color: #fff;
@@ -26,11 +28,13 @@ const NotificationData = styled.div`
   text-align: right;
   color: #6f6f6f;
 `;
+
 const SenderContainer = styled.div`
   display: flex;
   /* justify-content: center; */
   align-items: center;
 `;
+
 const SenderTextContainer = styled.div`
   display: grid;
   margin-left: 10px;
@@ -61,11 +65,6 @@ const IconsContainer = styled.div`
   padding-right: ${(props) => (props.isBig ? "1vh" : null)};
   justify-content: center;
 `;
-const Icon = styled.img`
-  width: ${(props) => (props.isBig ? "30px" : "22px")};
-  margin-bottom: 5px;
-  cursor: pointer;
-`;
 
 const NotificationDescription = styled.div`
   margin-top: 10px;
@@ -78,6 +77,45 @@ const NotificationImage = styled.img`
   width: 100%;
   border-radius: 10px;
 `;
+
+const Comments = styled.div`
+  width: 100%;
+  height: ${(props) => (props.selected ? "200px" : "0")};
+  border-top: ${(props) => (props.selected ? "1px solid gray" : null)};
+  margin-top: 1vw;
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 1vw 2vw;
+`;
+
+const CommentDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-left: 1vw;
+  h4 {
+    text-align: left;
+    span {
+      color: gray;
+      font-size: 10px;
+      margin-left: 5px;
+    }
+  }
+  p {
+    text-align: right;
+  }
+`;
+const CommentImage = styled.img`
+  border-radius: 10px;
+  width: ${(props) => (props.isBig ? "80px" : "50px")};
+  height: ${(props) => (props.isBig ? "80px" : "50px")};
+  object-fit: cover;
+  object-position: 0 1px;
+`;
+
 const Parse = require("parse");
 
 export default function NotificationItem(props) {
@@ -85,21 +123,23 @@ export default function NotificationItem(props) {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [data] = useState(props.object);
+  const [toggleComments, setToggleComments] = useState(false);
   // const data = props.object;
   const isBig = props.isBig;
+  const commentRef = useRef(null);
 
   const NotificationContainer = styled.div`
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
+    overflow: hidden;
     width: ${isBig ? "70%" : null};
     margin: ${isBig ? "1vw auto" : "1vw 0"};
     margin-top: 0;
     background-color: white;
   `;
   const News = Parse.Object.extend("News");
-  const query = new Parse.Query(News);
   const likedQuery = data.relation("likedBy").query();
 
   const checkLiked = () => {
@@ -120,6 +160,7 @@ export default function NotificationItem(props) {
       }
     });
   };
+
   const handleLiked = () => {
     if (liked) {
       data.relation("likedBy").remove(Parse.User.current());
@@ -166,6 +207,22 @@ export default function NotificationItem(props) {
     }
   };
 
+  const executeScroll = () =>
+    commentRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  const handleComments = () => {
+    setToggleComments(!toggleComments);
+    executeScroll();
+    const Comments = Parse.Object.extend("Comments");
+    const commentsQuery = new Parse.Query(Comments);
+    commentsQuery.equalTo("parent", data);
+    trackPromise(
+      commentsQuery.find().then((res) => {
+        console.log(res);
+      })
+    );
+  };
+
   return (
     <NotificationContainer>
       <NotificationData>
@@ -208,12 +265,30 @@ export default function NotificationItem(props) {
             cursor="pointer"
             width={isBig ? "30" : "22"}
             height={isBig ? "30" : "22"}
+            stroke={toggleComments ? "white" : "#130F26"}
+            fill={toggleComments ? "#130F26" : "none"}
+            onClick={handleComments}
           />
         </IconsContainer>
       </NotificationData>
       {data.get("image") ? (
         <NotificationImage src={data.get("image").url()} />
       ) : null}
+      <Comments ref={commentRef} selected={toggleComments}>
+        <LoadingIndicator />
+
+        {toggleComments ? (
+          <CommentContainer>
+            <CommentImage src={sender?.get("image")?.url()} />
+            <CommentDataContainer>
+              <h4>
+                sadfsaf<span>4h</span>
+              </h4>
+              <p>saaasdfsadfsadfsad</p>
+            </CommentDataContainer>
+          </CommentContainer>
+        ) : null}
+      </Comments>
     </NotificationContainer>
   );
 }

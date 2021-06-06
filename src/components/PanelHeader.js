@@ -65,22 +65,7 @@ const Parse = require("parse");
 export default function PanelHeader() {
   const [user, setUser] = useState(Parse.User.current());
   const [showDropDown, setShowDropDown] = useState(false);
-  const [workspaces, setWorkspaces] = useState([]);
-  const workspacesQuery = Parse.User.current().relation("workspaces").query();
 
-  const getWorkspaces = () => {
-    workspacesQuery.find().then((res) => {
-      let items = [];
-      res.forEach((w) => {
-        items.push(<HeaderListItem object={w} />);
-      });
-      setWorkspaces(items);
-    });
-  };
-
-  useEffect(() => {
-    getWorkspaces();
-  }, []);
   return (
     <PanelHeaderContainer>
       <HeaderLogo src={claassorLogo} />
@@ -90,7 +75,7 @@ export default function PanelHeader() {
           <p onClick={() => setShowDropDown(!showDropDown)}>
             <Triangle /> انتخاب گروه آموزشی
           </p>
-          {showDropDown ? workspaces : null}
+          {showDropDown ? <HeaderDropDown /> : null}
         </div>
         <UserProfileImage src={user.get("image")?.url()} alt="useIcon" />
       </UserSection>

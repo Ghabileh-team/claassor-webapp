@@ -13,6 +13,8 @@ import NotificationItem from "../components/NotificationItem";
 import { Route, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 import Chapters from "../components/archive/ArchiveLesson/Chapters";
+import { trackPromise } from "react-promise-tracker";
+import LoadingIndicator from "../components/LoadingIndicator";
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -59,13 +61,15 @@ export default function PanelBookmarks() {
   const fetchNews = () => {
     const query = new Parse.User.current().relation("savedNews").query();
     query.descending("createdAt");
-    query.find().then((res) => {
-      const items = [];
-      res.forEach((n) => {
-        items.push(<NotificationItem object={n} big isBig={true} />);
-      });
-      setNewsItems(items);
-    });
+    trackPromise(
+      query.find().then((res) => {
+        const items = [];
+        res.forEach((n) => {
+          items.push(<NotificationItem object={n} big isBig={true} />);
+        });
+        setNewsItems(items);
+      })
+    );
   };
 
   useEffect(() => {
@@ -75,7 +79,10 @@ export default function PanelBookmarks() {
   return (
     <ThemeProvider theme={theme}>
       <Route path={`${path}/notifications`}>
-        <NotificationsContainer>{newsItems}</NotificationsContainer>
+        <NotificationsContainer>
+          <LoadingIndicator />
+          {newsItems}
+        </NotificationsContainer>
       </Route>
       <Route path={`${path}/archives`}>
         {/* <ArchiveWrapper></ArchiveWrapper> */}

@@ -13,13 +13,8 @@ const ListItem = styled.li`
   background-color: white;
   margin-bottom: 10px;
   border-radius: 10px;
-  position: absolute;
   display: flex;
   justify-content: space-around;
-  transform: translateX(-50%);
-
-  /* grid-template-columns: 1fr 3fr 1fr;
-  grid-column-: 10px; */
   box-shadow: 0px 0px 5px #6f6f6f;
   padding: 1vw;
 `;
@@ -56,7 +51,6 @@ export default function HeaderListItem(props) {
   const dispatch = useDispatch();
   const handleLogout = () => {
     Parse.User.current().relation("workspaces").remove(data);
-
     Parse.User.current()
       .save()
       .then((res) => {
@@ -64,23 +58,36 @@ export default function HeaderListItem(props) {
       });
   };
 
-  const changeLocalCurrentWorkspace = () => {
+  const changeCurrentWorkspace = () => {
     dispatch(updateCurrentWorkspace(data));
+    Parse.User.current().set("currentWorkspace", data);
+    Parse.User.current().save();
   };
 
   return (
     <ListItem>
       <ListItemImage src={Image} />
       <CenterColumn>
-        <h5>{data.get("username")}</h5>
-        <p>
-          type: <span>{data.get("type")}</span>
-        </p>
-        <p>salaaam</p>
+        <h5>{!props.ownWorkspace ? data.get("username") : "My workspace"}</h5>
+        {!props.ownWorkspace ? (
+          <p>
+            type: <span>{data.get("type")}</span>
+          </p>
+        ) : null}
+        {/* <p>salaaam</p> */}
       </CenterColumn>
       <IconsColumn>
-        <Ticket onClick={changeLocalCurrentWorkspace} width="18" height="18" />
-        <Logout onClick={handleLogout} stroke="red" width="21" height="21" />
+        <Ticket onClick={changeCurrentWorkspace} width="18" height="18" />
+        {!props.ownWorkspace ? (
+          <>
+            <Logout
+              onClick={handleLogout}
+              stroke="red"
+              width="21"
+              height="21"
+            />
+          </>
+        ) : null}
       </IconsColumn>
     </ListItem>
   );

@@ -5,6 +5,8 @@ import { PanelBox } from "../Styles";
 import DayItem from "./DayItem";
 import { ReactComponent as CalenadarSVG } from "../assets/icons/Calendar.svg";
 import NoteItem from "./NoteItem";
+import { trackPromise } from "react-promise-tracker";
+import LoadingIndicator from "./LoadingIndicator";
 const Parse = require("parse");
 const PanelDayItemsContainer = styled(PanelBox)`
   height: fit-content;
@@ -117,19 +119,21 @@ export default function PanelDayItems() {
     const Notes = Parse.Object.extend("Notes");
     const notesQuery = new Parse.Query(Notes);
     notesQuery.equalTo("users", Parse.User.current());
-    notesQuery.find().then((res) => {
-      const items = [];
+    trackPromise(
+      notesQuery.find().then((res) => {
+        const items = [];
 
-      res?.forEach((l) => {
-        items.push(
-          <SwiperSlide>
-            <NoteItem object={l} />
-          </SwiperSlide>
-        );
-      });
+        res?.forEach((l) => {
+          items.push(
+            <SwiperSlide>
+              <NoteItem object={l} />
+            </SwiperSlide>
+          );
+        });
 
-      setNotes(items);
-    });
+        setNotes(items);
+      })
+    );
   };
 
   useEffect(() => {
@@ -152,7 +156,7 @@ export default function PanelDayItems() {
           <Calendar style={{ margin: "auto" }} />
         </CalendarIcon>
       </NavBarContainer>
-
+      <LoadingIndicator />
       <Swiper
         slidesPerView={3}
         onSlideChange={() => console.log("slide change")}

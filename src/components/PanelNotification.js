@@ -5,6 +5,8 @@ import NotificationItem from "./NotificationItem";
 
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import LoadingIndicator from "./LoadingIndicator";
+import { trackPromise } from "react-promise-tracker";
 
 const Parse = require("parse");
 export default function PanelNotification(props) {
@@ -29,18 +31,25 @@ export default function PanelNotification(props) {
     const query = new Parse.Query(News);
     query.limit(3);
     query.descending("createdAt");
-    query.find().then((res) => {
-      const items = [];
-      res.forEach((n) => {
-        items.push(<NotificationItem object={n} />);
-      });
-      setNewsItems(items);
-    });
+    trackPromise(
+      query.find().then((res) => {
+        const items = [];
+        res.forEach((n) => {
+          items.push(<NotificationItem object={n} />);
+        });
+        setNewsItems(items);
+      })
+    );
   };
 
   useEffect(() => {
     fetchNews();
   }, []);
 
-  return <NotificationContainer>آخرین اخبار{newsItems}</NotificationContainer>;
+  return (
+    <NotificationContainer>
+      آخرین اخبار
+      <LoadingIndicator /> {newsItems}
+    </NotificationContainer>
+  );
 }

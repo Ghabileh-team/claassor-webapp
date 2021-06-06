@@ -9,9 +9,7 @@ import PanelNotificaions from "./pages/PanelNotifications";
 import PanelPlans from "./pages/PanelPlans";
 import BookmarksPage from "./pages/PanelBookmarks";
 import PanelMain from "./pages/PanelMain/PanelMain";
-const Parse = require("parse");
-Parse.serverURL = "http://168.119.206.34:1337/parse";
-Parse.initialize("APPLICATION_ID");
+
 function App() {
   return (
     <Router>

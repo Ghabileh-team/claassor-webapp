@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import {
-  PanelBigContainer,
-  PanelBox,
-  PanelContainer,
-  PanelWindow,
-  theme,
-} from "../Styles";
+import { PanelBox, PanelContainer, theme } from "../Styles";
 
 import "swiper/swiper.scss";
-import PanelNav from "../components/PanelNav";
-import PanelHeader from "../components/PanelHeader";
+
 import { Route, useRouteMatch } from "react-router";
 import PanelArchiveWorkspaceArea from "./PanelArchiveWorkspaceArea";
 import ArchiveItem from "../components/archive/ArchiveItem";
-
+import { trackPromise } from "react-promise-tracker";
+import LoadingIndicator from "../components/LoadingIndicator";
 const Parse = require("parse");
 
 const ArchiveContainer = styled(PanelBox)`
@@ -38,13 +32,15 @@ export default function PanelArchive(props) {
 
   const fetchWorkspaces = () => {
     const workspacesQuery = Parse.User.current().relation("workspaces").query();
-    workspacesQuery.find().then((res) => {
-      let items = [];
-      res.forEach((w) => {
-        items.push(<ArchiveItem object={w} />);
-      });
-      setWorkspaces(items);
-    });
+    trackPromise(
+      workspacesQuery.find().then((res) => {
+        let items = [];
+        res.forEach((w) => {
+          items.push(<ArchiveItem object={w} />);
+        });
+        setWorkspaces(items);
+      })
+    );
   };
 
   useEffect(() => {
@@ -57,7 +53,9 @@ export default function PanelArchive(props) {
           <PanelArchiveWorkspaceArea />
         </Route>
         <Route exact path={path}>
-          <ArchiveContainer>{workspaces}</ArchiveContainer>
+          <ArchiveContainer>
+            <LoadingIndicator /> {workspaces}
+          </ArchiveContainer>
         </Route>
       </PanelContainer>
     </ThemeProvider>

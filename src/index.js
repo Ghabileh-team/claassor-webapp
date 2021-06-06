@@ -5,7 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-
+import LoadingIndicator from "./components/LoadingIndicator";
+const Parse = require("parse");
+Parse.serverURL = "http://51.210.100.233:1337/parse";
+Parse.initialize("APPLICATION_ID");
 // import configureStore from "./configureStore";
 
 // const store = configureStore();

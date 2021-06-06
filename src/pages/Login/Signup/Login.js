@@ -90,6 +90,7 @@ function FormComponent(props) {
   } = props;
 
   function handleSignup() {
+    Parse.User.logOut();
     const query = new Parse.Query(Parse.User);
     query.equalTo("username", username);
     query.find().then((res) => {
@@ -116,12 +117,11 @@ function FormComponent(props) {
     const user = new Parse.User();
     user.set("username", username);
     user.set("password", password);
-    user.set("FirstName", firstname);
-    user.set("LastName", lastname);
+    user.set("firstName", firstname);
+    user.set("lastName", lastname);
     user.set("email", email);
     user.set("Phonenumber", phoneNum);
     user.signUp().then((res) => {
-      console.log(res);
       Swal.fire({
         title: "حساب کاربری شما با موفقیت ایجاد شد",
         text: "از این پس به صفحه داشبورد هدایت می شوید",

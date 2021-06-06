@@ -84,7 +84,9 @@ export default function ArchiveBoxComponent(props) {
   };
 
   useEffect(() => {
-    checkSaved();
+    if (!props.user) {
+      checkSaved();
+    }
   }, []);
 
   return (
@@ -93,7 +95,8 @@ export default function ArchiveBoxComponent(props) {
         {props.user ? <Image src={profile} /> : null}
         <StyledLink to={`${url}/${props.step}`}>
           <TextContainer>
-            <h5>{data.get("title")}</h5>
+            {!props.user ? <h5>{data.get("title")}</h5> : null}
+
             {props.user ? <p>@asdfasdf</p> : null}
           </TextContainer>
         </StyledLink>
@@ -102,20 +105,19 @@ export default function ArchiveBoxComponent(props) {
         <Edit
           cursor="pointer"
           style={{ marginLeft: 5 }}
-          width="18px"
+          width="16px"
           stroke="#ff0000"
           small
         />
 
-        <Delete cursor="pointer" width="18px" small />
+        <Delete cursor="pointer" width="16" small />
 
         {props.step === "session" || props.step === "saved" ? (
           <Bookmark
             cursor="pointer"
             stroke="#B4CBB2"
             fill={saved ? "#B4CBB2" : "none"}
-            width="18"
-            height="18"
+            width="16"
             onClick={handleSaved}
           />
         ) : null}

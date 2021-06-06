@@ -5,6 +5,8 @@ import imageIcon from "../../assets/icons/Image.svg";
 import folderIcon from "../../assets/icons/Folder.svg";
 import Swal from "sweetalert2";
 import { Button, Icon } from "../../Styles";
+import { useSelector } from "react-redux";
+import { selectCurrentWorkspace } from "../../redux/globalValuesSlice";
 
 const Container = styled.div`
   position: absolute;
@@ -75,17 +77,19 @@ export default function DashboardAddPopUp(props) {
   const [text, setText] = useState("");
   const [image, setImage] = useState();
   const [file, setFile] = useState();
+
+  const workspace = useSelector(selectCurrentWorkspace);
   const addTweet = () => {
+    console.log(image);
     if (typeof image !== "undefined") {
       const parseImage = new Parse.File(image.name, image);
-
       query.set("image", parseImage);
     }
 
     query.set("description", text);
-    query.set("description", text);
     query.set("sender", Parse.User.current());
-    query.save().then((res) =>
+    query.set("workspace", workspace);
+    query.save().then(() =>
       Swal.fire({
         title: "ثبت توییت",
         text: "توییت شما با موفقیت اضافه شد",
