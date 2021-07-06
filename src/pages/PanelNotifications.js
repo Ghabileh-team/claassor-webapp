@@ -4,9 +4,13 @@ import { PanelContainer, theme } from "../Styles";
 import { ReactComponent as Plus } from "../assets/icons/Plus.svg";
 import "swiper/swiper.scss";
 import NotificationItem from "../components/NotificationItem";
-
 import DashboardAddPopUp from "../components/Dashboard/DashboardAddPopUp";
-import { selectWorkspace, updateWorkspace } from "../redux/archiveSlice";
+import {
+  selectIsAdmin,
+  selectIsCreator,
+  selectWorkspace,
+  updateWorkspace,
+} from "../redux/archiveSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { selectCurrentWorkspace } from "../redux/globalValuesSlice";
@@ -35,6 +39,8 @@ export default function PanelNotificaions(props) {
   const [newsItems, setNewsItems] = useState([]);
   const [currentWorkspace] = useState(useSelector(selectCurrentWorkspace));
   // const [showAddPopUp, setShowAddPopUp] = useState(true);
+  const isAdmin = useSelector(selectIsAdmin);
+  const isCreator = useSelector(selectIsCreator);
   const dispatch = useDispatch();
   // if(currentWorkspace !== )
   const fetchNews = () => {
@@ -68,13 +74,15 @@ export default function PanelNotificaions(props) {
         {newsItems}
       </NotificationsContainer>
 
-      <PlusButton
-        onClick={() => {
-          props.popup(true);
-        }}
-      >
-        <Plus fill="white" width="30" />
-      </PlusButton>
+      {isCreator || isAdmin ? (
+        <PlusButton
+          onClick={() => {
+            props.popup(true);
+          }}
+        >
+          <Plus fill="white" width="30" />
+        </PlusButton>
+      ) : null}
     </ThemeProvider>
   );
 }

@@ -6,7 +6,7 @@ import { ReactComponent as Bookmark } from "../assets/icons/Bookmark.svg";
 import { ReactComponent as Chat } from "../assets/icons/Chat.svg";
 import { trackPromise } from "react-promise-tracker";
 import LoadingIndicator from "./LoadingIndicator";
-
+import Comment from "./Comment/Comment";
 const NotificationLeft = styled.div`
   h3 {
     color: #000;
@@ -79,41 +79,11 @@ const NotificationImage = styled.img`
 `;
 
 const Comments = styled.div`
+  position: relative;
   width: 100%;
   height: ${(props) => (props.selected ? "200px" : "0")};
   border-top: ${(props) => (props.selected ? "1px solid gray" : null)};
   margin-top: 1vw;
-`;
-
-const CommentContainer = styled.div`
-  display: flex;
-  width: 100%;
-  padding: 1vw 2vw;
-`;
-
-const CommentDataContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin-left: 1vw;
-  h4 {
-    text-align: left;
-    span {
-      color: gray;
-      font-size: 10px;
-      margin-left: 5px;
-    }
-  }
-  p {
-    text-align: right;
-  }
-`;
-const CommentImage = styled.img`
-  border-radius: 10px;
-  width: ${(props) => (props.isBig ? "80px" : "50px")};
-  height: ${(props) => (props.isBig ? "80px" : "50px")};
-  object-fit: cover;
-  object-position: 0 1px;
 `;
 
 const Parse = require("parse");
@@ -123,10 +93,39 @@ export default function NotificationItem(props) {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [data] = useState(props.object);
+  const [comments, setComments] = useState([]);
   const [toggleComments, setToggleComments] = useState(false);
+  const [day, setDay] = useState(false);
+  const [month, setMonth] = useState(false);
+  const [hour, setHour] = useState(false);
+  const [minute, setMinute] = useState(false);
+  var one_day = 1000 * 60 * 60 * 24;
+  const date = new Date();
+  const secounds = date - data.createdAt;
+  const days = secounds / one_day;
+  const months = secounds / (one_day * 30);
+  const hours = secounds / (1000 * 60 * 60);
+  const minutes = secounds / (1000 * 60);
+
+  useEffect(() => {
+    if (days >= 1) {
+      setDay(true);
+    }
+    if (months >= 1) {
+      setMonth(true);
+    }
+    if (hours >= 1) {
+      setHour(true);
+    }
+    if (minutes >= 1) {
+      setMinute(true);
+    }
+  }, []);
+
   // const data = props.object;
   const isBig = props.isBig;
   const commentRef = useRef(null);
+  const containerRef = useRef(null);
 
   const NotificationContainer = styled.div`
     display: flex;
@@ -208,7 +207,15 @@ export default function NotificationItem(props) {
   };
 
   const executeScroll = () =>
-    commentRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    toggleComments
+      ? containerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        })
+      : commentRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
 
   const handleComments = () => {
     setToggleComments(!toggleComments);
@@ -218,14 +225,19 @@ export default function NotificationItem(props) {
     commentsQuery.equalTo("parent", data);
     trackPromise(
       commentsQuery.find().then((res) => {
-        console.log(res);
+        let items = [];
+        res.forEach((i) => {
+          i.get("sender").fetch();
+          items.push(<Comment data={i} />);
+        });
+        setComments(items);
       })
     );
   };
 
   return (
     <NotificationContainer>
-      <NotificationData>
+      <NotificationData ref={containerRef}>
         <NotificationLeft>
           <SenderContainer>
             <SenderImage src={sender?.get("image")?.url()} isBig={isBig} />
@@ -235,7 +247,17 @@ export default function NotificationItem(props) {
                   " " +
                   checkUndefined(sender?.get("lastName"))}
               </h3>
-              <p>2h</p>
+              <p>
+                {month
+                  ? `${Math.floor(months)}month`
+                  : day
+                  ? `${Math.floor(days)}d`
+                  : hour
+                  ? `${Math.floor(hours)}h`
+                  : minute
+                  ? `${Math.floor(minutes)}m`
+                  : `${Math.floor(secounds)}s`}
+              </p>
 
               <p>{sender?.get("username")}</p>
             </SenderTextContainer>
@@ -277,18 +299,19 @@ export default function NotificationItem(props) {
       <Comments ref={commentRef} selected={toggleComments}>
         <LoadingIndicator />
 
-        {toggleComments ? (
-          <CommentContainer>
-            <CommentImage src={sender?.get("image")?.url()} />
-            <CommentDataContainer>
-              <h4>
-                sadfsaf<span>4h</span>
-              </h4>
-              <p>saaasdfsadfsadfsad</p>
-            </CommentDataContainer>
-          </CommentContainer>
-        ) : null}
+        {toggleComments ? comments : null}
+
+        <CommentsFooter>
+          <input />
+          <button>send</button>
+        </CommentsFooter>
       </Comments>
     </NotificationContainer>
   );
 }
+
+const CommentsFooter = styled.div`
+  display: none;
+  position: absolute;
+  bottom: 0;
+`;

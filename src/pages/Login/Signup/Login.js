@@ -110,7 +110,7 @@ function FormComponent(props) {
 
   function loginFunction() {
     Parse.User.logIn(username, password).then((res) => {
-      history.push("users/dashboard");
+      history.push("users");
     });
   }
   function signupFunction() {

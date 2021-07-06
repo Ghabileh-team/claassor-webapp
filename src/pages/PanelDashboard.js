@@ -9,7 +9,6 @@ import {
 } from "../Styles";
 
 import "swiper/swiper.scss";
-
 import PanelPackageInfo from "../components/PanelPackageInfo";
 import PanelTodayPlans from "../components/PanelTodayPlans";
 import PanelNav from "../components/PanelNav";
@@ -32,7 +31,7 @@ export default function PanelDashboard(props) {
       <PanelContainer>
         <PanelDashboardLeftColumn>
           <PanelNotification />
-          <PanelPackageInfo />
+          {/* <PanelPackageInfo /> */}
         </PanelDashboardLeftColumn>
         <PanelContentContainer>
           <PanelDayItems />

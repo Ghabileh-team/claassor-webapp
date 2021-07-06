@@ -85,10 +85,10 @@ export default function ArchiveItem(props) {
   };
 
   const ticketClick = () => {
-    dispatch(updateWorkspace(object));
+    dispatch(updateWorkspace(object.id));
+
     history.push(`${url}/workspace`);
   };
-
   return (
     <Container>
       <Top />

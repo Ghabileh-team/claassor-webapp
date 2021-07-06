@@ -8,8 +8,12 @@ import { ReactComponent as AddUser } from "../../assets/icons/Add-user.svg";
 import { ReactComponent as DeleteUser } from "../../assets/icons/Delete-user.svg";
 import { useHistory, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { updateArchiveLabel } from "../../redux/archiveSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectIsAdmin,
+  selectIsCreator,
+  updateArchiveLabel,
+} from "../../redux/archiveSlice";
 const Container = styled(PanelBox)`
   padding: 0;
   display: grid;
@@ -68,6 +72,9 @@ export default function ArchiveWorkspaceItem(props) {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const isCreator = useSelector(selectIsCreator);
+  const isAdmin = useSelector(selectIsAdmin);
+
   const onClickFunc = () => {
     dispatch(updateArchiveLabel(data));
     history.push(`${url}/item`);
@@ -78,7 +85,7 @@ export default function ArchiveWorkspaceItem(props) {
         <SenderContainer onClick={onClickFunc}>
           <SenderImage src={userIcon} />
           <SenderTextContainer>
-            <h5>{data?.get("name")}</h5>
+            <h5>{props.users ? data?.get("firstName") : data?.get("name")}</h5>
 
             {/* {props.users ? null : <p>@MehrshadSoltan</p>} */}
           </SenderTextContainer>
@@ -96,7 +103,7 @@ export default function ArchiveWorkspaceItem(props) {
               />
               <DeleteUser cursor="pointer" width="18px" small />
             </>
-          ) : (
+          ) : isAdmin || isCreator ? (
             <>
               <Edit
                 cursor="pointer"
@@ -107,7 +114,7 @@ export default function ArchiveWorkspaceItem(props) {
               />
               <Delete cursor="pointer" width="18px" small />
             </>
-          )}
+          ) : null}
         </IconsContainer>
       </Bottom>
     </Container>

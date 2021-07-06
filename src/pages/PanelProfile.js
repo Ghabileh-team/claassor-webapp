@@ -30,6 +30,31 @@ const PlusButton = styled.div`
   left: 5%;
   cursor: pointer;
 `;
+
+const Container = styled.div`
+  flex: 2;
+  margin-right: 2vw;
+`;
+
+const UserData = styled.div`
+  box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 1vw;
+  margin-top: 2vw;
+`;
+
+const Workspaces = styled.div`
+  box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: 200px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 1vw;
+  margin-top: 2vw;
+`;
 export default function PanelProfile(props) {
   const [newsItems, setNewsItems] = useState([]);
   const [showAddPopUp, setShowAddPopUp] = useState(false);
@@ -38,7 +63,7 @@ export default function PanelProfile(props) {
     const News = Parse.Object.extend("News");
     const query = new Parse.Query(News);
     query.descending("createdAt");
-
+    query.equalTo("sender", Parse.User.current());
     query.find().then((res) => {
       const items = [];
       res.forEach((n) => {
@@ -48,15 +73,29 @@ export default function PanelProfile(props) {
     });
   };
 
+  const fetchWorkspaces = () => {
+    const query = new Parse.Query(Parse.User);
+    query.equalTo("type", "host");
+    query.equalTo("creator", Parse.User.current());
+    query.find().then((res) => {});
+  };
   useEffect(() => {
     fetchNews();
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       {showAddPopUp ? <DashboardAddPopUp popup={setShowAddPopUp} /> : null}
 
-      <NotificationsContainer>{newsItems}</NotificationsContainer>
-
+      <NotificationsContainer style={{ flex: 3 }}>
+        {newsItems}
+      </NotificationsContainer>
+      <Container>
+        <UserData>
+          <p>asdfas</p>
+        </UserData>
+        <Workspaces></Workspaces>
+      </Container>
       <PlusButton onClick={() => setShowAddPopUp(true)}>
         <Plus fill="white" width="30" />
       </PlusButton>

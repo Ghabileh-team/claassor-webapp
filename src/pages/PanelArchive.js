@@ -36,6 +36,7 @@ export default function PanelArchive(props) {
       workspacesQuery.find().then((res) => {
         let items = [];
         res.forEach((w) => {
+          w.fetch().then((res) => console.log(res));
           items.push(<ArchiveItem object={w} />);
         });
         setWorkspaces(items);

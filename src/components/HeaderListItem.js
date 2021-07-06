@@ -6,6 +6,7 @@ import { ReactComponent as Ticket } from "../assets/icons/Ticket.svg";
 import { ReactComponent as Logout } from "../assets/icons/Logout.svg";
 import { useDispatch } from "react-redux";
 import { updateCurrentWorkspace } from "../redux/globalValuesSlice";
+import { updateIsAdmin, updateIsCreator } from "../redux/archiveSlice";
 
 const Parse = require("parse");
 
@@ -58,7 +59,27 @@ export default function HeaderListItem(props) {
       });
   };
 
+  const checkIsAdmin = () => {
+    let query = data.relation("admins").query();
+    query.equalTo("objectId", Parse.User.current().id);
+    query.find().then((res) => {
+      if (res.length !== 0) {
+        dispatch(updateIsAdmin(true));
+      }
+    });
+  };
+
+  const checkIsCreator = () => {
+    let creator = data.get("creator");
+    if (creator.id === Parse.User.current().id) {
+      dispatch(updateIsCreator(true));
+    }
+  };
+
   const changeCurrentWorkspace = () => {
+    props.show(false);
+    checkIsAdmin();
+    checkIsCreator();
     dispatch(updateCurrentWorkspace(data));
     Parse.User.current().set("currentWorkspace", data);
     Parse.User.current().save();

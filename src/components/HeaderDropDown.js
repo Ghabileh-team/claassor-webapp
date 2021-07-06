@@ -20,7 +20,7 @@ const List = styled.ul`
   box-shadow: 0px 0px 5px #6f6f6f;
 `;
 
-export default function HeaderDropDown() {
+export default function HeaderDropDown(props) {
   const [workspaces, setWorkspaces] = useState([]);
   const workspacesQuery = Parse.User.current().relation("workspaces").query();
 
@@ -28,10 +28,14 @@ export default function HeaderDropDown() {
     workspacesQuery.find().then((res) => {
       let items = [];
       res.forEach((w) => {
-        items.push(<HeaderListItem object={w} />);
+        items.push(<HeaderListItem show={props.show} object={w} />);
       });
       items.push(
-        <HeaderListItem object={Parse.User.current()} ownWorkspace={true} />
+        <HeaderListItem
+          show={props.show}
+          object={Parse.User.current()}
+          ownWorkspace={true}
+        />
       );
       setWorkspaces(items);
     });

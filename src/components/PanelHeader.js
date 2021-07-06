@@ -75,7 +75,7 @@ export default function PanelHeader() {
           <p onClick={() => setShowDropDown(!showDropDown)}>
             <Triangle /> انتخاب گروه آموزشی
           </p>
-          {showDropDown ? <HeaderDropDown /> : null}
+          {showDropDown ? <HeaderDropDown show={setShowDropDown} /> : null}
         </div>
         <UserProfileImage src={user.get("image")?.url()} alt="useIcon" />
       </UserSection>

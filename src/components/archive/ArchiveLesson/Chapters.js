@@ -30,6 +30,7 @@ export default function Chapters(props) {
     const query = new Parse.Query(Units);
     query.equalTo("label", label);
     query.find().then((res) => {
+      console.log(label);
       let items = [];
       res.forEach((item) => {
         items.push(<ArchiveBoxComponent data={item} step={props.step} />);
@@ -52,15 +53,18 @@ export default function Chapters(props) {
   };
   const fetchSessions = () => {
     if (props.step === "session") {
-      console.log("hi");
-      const query = unit?.relation("sessions").query();
-      query.find().then((res) => {
-        console.log(res);
-        let items = [];
-        res.forEach((item) => {
-          items.push(<ArchiveBoxComponent data={item} step={props.step} />);
+      const Units = Parse.Object.extend("Units");
+      const query = new Parse.Query(Units);
+      query.equalTo("objectId", unit);
+      query.first().then((obj) => {
+        const query = obj?.relation("sessions").query();
+        query.find().then((res) => {
+          let items = [];
+          res.forEach((item) => {
+            items.push(<ArchiveBoxComponent data={item} step={props.step} />);
+          });
+          setSessions(items);
         });
-        setSessions(items);
       });
     }
   };

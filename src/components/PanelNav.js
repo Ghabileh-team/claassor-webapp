@@ -94,12 +94,16 @@ const userLogout = () => {
 };
 export default function PanelNav(props) {
   const history = useHistory();
-
+  const path = history.location.pathname;
+  console.log(path);
   return (
     <NavContainer>
       <ul>
         <li>
-          <NavLink className={props.dashboard ? "selected" : null} to="/users">
+          <NavLink
+            className={path === "/users" ? "selected" : null}
+            to="/users"
+          >
             پنل کاربری
             <HomeIcon
               stroke={props.dashboard ? "white" : "#A7A7A7"}
@@ -109,7 +113,7 @@ export default function PanelNav(props) {
         </li>
         <li>
           <NavLink
-            className={props.notifications ? "selected" : null}
+            className={path === "/users/notifications" ? "selected" : null}
             to="/users/notifications"
           >
             اعلانات{" "}
@@ -121,7 +125,7 @@ export default function PanelNav(props) {
         </li>
         <li>
           <NavLink
-            className={props.archive ? "selected" : null}
+            className={path.includes("/users/archive") ? "selected" : null}
             to="/users/archive"
           >
             آرشیو
@@ -134,7 +138,7 @@ export default function PanelNav(props) {
 
         <li>
           <NavLink
-            className={props.bookmarks ? "selected" : null}
+            className={path === "/users/bookmarks" ? "selected" : null}
             to="/users/bookmarks"
           >
             اندوخته
@@ -147,7 +151,7 @@ export default function PanelNav(props) {
 
         <li>
           <NavLink
-            className={props.profile ? "selected" : null}
+            className={path === "/users/profile" ? "selected" : null}
             to="/users/profile"
           >
             پروفایل <Icon src={ProfileIcon} />

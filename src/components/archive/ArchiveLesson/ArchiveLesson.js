@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, useRouteMatch } from "react-router";
 import styled from "styled-components";
 import { PanelBox } from "../../../Styles";
@@ -11,6 +11,7 @@ import ArchiveBoxComponent from "./ArchiveBoxComponent";
 import { useSelector } from "react-redux";
 import { selectArchiveLabel } from "../../../redux/archiveSlice";
 import Chapters from "./Chapters";
+import { useEffect } from "react";
 
 const TopBar = styled.div`
   background-color: white;
@@ -104,10 +105,22 @@ const PlusComponent = styled.div`
   cursor: pointer;
 `;
 
+const Parse = require("parse");
+
 export default function ArchiveLesson() {
   const { url, path } = useRouteMatch();
+  const [label, setLabel] = useState();
+  const labelId = useSelector(selectArchiveLabel);
 
-  const label = useSelector(selectArchiveLabel);
+  useEffect(() => {
+    const Labels = Parse.Object.extend("Labels");
+    const query = new Parse.Query(Labels);
+    query.equalTo("objectId", labelId);
+
+    query.first().then((obj) => {
+      setLabel(obj);
+    });
+  }, []);
   return (
     <>
       <WorkspaceInfoBox>

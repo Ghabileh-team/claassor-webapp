@@ -29,6 +29,7 @@ export default function PanelNotification(props) {
   const fetchNews = () => {
     const News = Parse.Object.extend("News");
     const query = new Parse.Query(News);
+    props.workspace && query.equalTo("workspace", props.workspace);
     query.limit(3);
     query.descending("createdAt");
     trackPromise(
