@@ -5,8 +5,12 @@ import imageIcon from "../../assets/icons/Image.svg";
 import folderIcon from "../../assets/icons/Folder.svg";
 import Swal from "sweetalert2";
 import { Button, Icon } from "../../Styles";
-import { useSelector } from "react-redux";
-import { selectCurrentWorkspace } from "../../redux/globalValuesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrentWorkspace,
+  updateShowPopupArchive,
+} from "../../redux/globalValuesSlice";
+import { selectEditItem } from "../../redux/archiveSlice";
 
 const Container = styled.div`
   position: absolute;
@@ -77,8 +81,10 @@ export default function DashboardAddPopUp(props) {
   const [text, setText] = useState("");
   const [image, setImage] = useState();
   const [file, setFile] = useState();
-
+  const dispatch = useDispatch();
   const workspace = useSelector(selectCurrentWorkspace);
+  const editItem = useSelector(selectEditItem);
+
   const addTweet = () => {
     console.log(image);
     if (typeof image !== "undefined") {
@@ -101,6 +107,10 @@ export default function DashboardAddPopUp(props) {
   const imageBtn = useRef(null);
   const fileBtn = useRef(null);
 
+  const editObj = () => {
+    //
+  };
+
   const handleImageBtn = () => {
     imageBtn.current.click();
   };
@@ -121,9 +131,12 @@ export default function DashboardAddPopUp(props) {
     setFile(selectedFile);
   };
 
+  const handleClose = () => {
+    dispatch(updateShowPopupArchive(false));
+  };
   return (
     <Container>
-      <CloseIcon src={closeIcon} onClick={() => props.popup(false)} />
+      <CloseIcon src={closeIcon} onClick={handleClose} />
       <TopContainer>
         <TextInput
           value={text}
@@ -137,26 +150,30 @@ export default function DashboardAddPopUp(props) {
       </TopContainer>
       <Toolbar>
         <div>
-          <input
-            type="file"
-            name="image"
-            onChange={handleImageSelect}
-            id="image"
-            ref={imageBtn}
-            accept="image/*,video/*"
-            style={{ display: "none" }}
-          />
-          <input
-            type="file"
-            name="image"
-            onChange={handleFileSelect}
-            id="image"
-            ref={fileBtn}
-            accept=".doc,.docx,.pdf,audio/*"
-            style={{ display: "none" }}
-          />
-          <Icon onClick={handleImageBtn} src={imageIcon} />
-          <Icon onClick={handleFileBtn} src={folderIcon} />
+          {props.primary && (
+            <>
+              <input
+                type="file"
+                name="image"
+                onChange={handleImageSelect}
+                id="image"
+                ref={imageBtn}
+                accept="image/*,video/*"
+                style={{ display: "none" }}
+              />
+              <input
+                type="file"
+                name="image"
+                onChange={handleFileSelect}
+                id="image"
+                ref={fileBtn}
+                accept=".doc,.docx,.pdf,audio/*"
+                style={{ display: "none" }}
+              />
+              <Icon onClick={handleImageBtn} src={imageIcon} />
+              <Icon onClick={handleFileBtn} src={folderIcon} />
+            </>
+          )}
         </div>
         <Button onClick={addTweet} light>
           ثبت

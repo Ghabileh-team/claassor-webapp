@@ -14,6 +14,7 @@ import {
   selectIsCreator,
   updateArchiveLabel,
 } from "../../redux/archiveSlice";
+import { updateShowPopupArchive } from "../../redux/globalValuesSlice";
 const Container = styled(PanelBox)`
   padding: 0;
   display: grid;
@@ -68,17 +69,21 @@ const IconsContainer = styled.div`
 export default function ArchiveWorkspaceItem(props) {
   const { path, url } = useRouteMatch();
   const data = props.object;
-
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const isCreator = useSelector(selectIsCreator);
   const isAdmin = useSelector(selectIsAdmin);
 
   const onClickFunc = () => {
-    dispatch(updateArchiveLabel(data));
+    dispatch(updateArchiveLabel(data.id));
     history.push(`${url}/item`);
   };
+
+  const handleShowPopup = () => {
+    dispatch(updateShowPopupArchive(true));
+  };
+
   return (
     <Container>
       <Bottom>
@@ -86,8 +91,6 @@ export default function ArchiveWorkspaceItem(props) {
           <SenderImage src={userIcon} />
           <SenderTextContainer>
             <h5>{props.users ? data?.get("firstName") : data?.get("name")}</h5>
-
-            {/* {props.users ? null : <p>@MehrshadSoltan</p>} */}
           </SenderTextContainer>
         </SenderContainer>
 
@@ -110,6 +113,7 @@ export default function ArchiveWorkspaceItem(props) {
                 style={{ marginLeft: 5 }}
                 width="18px"
                 stroke="#ff0000"
+                onClick={handleShowPopup}
                 small
               />
               <Delete cursor="pointer" width="18px" small />

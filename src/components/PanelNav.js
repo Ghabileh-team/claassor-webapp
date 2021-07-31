@@ -95,7 +95,6 @@ const userLogout = () => {
 export default function PanelNav(props) {
   const history = useHistory();
   const path = history.location.pathname;
-  console.log(path);
   return (
     <NavContainer>
       <ul>

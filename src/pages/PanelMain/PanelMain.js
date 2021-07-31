@@ -18,6 +18,11 @@ import PanelDashboard from "../PanelDashboard";
 import PanelArchive from "../PanelArchive";
 import PanelBookmarks from "../PanelBookmarks";
 import PanelProfile from "../PanelProfile";
+import { useSelector } from "react-redux";
+import {
+  selectShowPopup,
+  selectShowPopupArchive,
+} from "../../redux/globalValuesSlice";
 
 const Parse = require("parse");
 
@@ -39,8 +44,9 @@ const PlusButton = styled.div`
 `;
 export default function PanelMain(props) {
   const [newsItems, setNewsItems] = useState([]);
-  const [showAddPopUp, setShowAddPopUp] = useState(false);
   const { path, url } = useRouteMatch();
+  const showAddPopup = useSelector(selectShowPopup);
+  const showAddPopupArchive = useSelector(selectShowPopupArchive);
 
   const fetchNews = () => {
     const News = Parse.Object.extend("News");
@@ -61,13 +67,14 @@ export default function PanelMain(props) {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      {showAddPopUp ? <DashboardAddPopUp popup={setShowAddPopUp} /> : null}
+      {showAddPopup ? <DashboardAddPopUp primary /> : null}
+      {showAddPopupArchive ? <DashboardAddPopUp /> : null}
 
-      <PanelWindow blur={showAddPopUp}>
+      <PanelWindow blur={showAddPopup || showAddPopupArchive}>
         <PanelHeader />
         <PanelBigContainer>
           <Route path={`${path}/notifications`}>
-            <PanelNotificaions popup={setShowAddPopUp} />
+            <PanelNotificaions />
           </Route>
           <Route path={`${path}/archive`}>
             <PanelArchive />

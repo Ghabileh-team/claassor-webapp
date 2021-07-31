@@ -54,11 +54,60 @@ const Workspaces = styled.div`
   border-radius: 20px;
   padding: 1vw;
   margin-top: 2vw;
+
+  h4 {
+    text-align: right;
+    color: #1b164a;
+  }
+`;
+
+const WorkspaceItem = styled.div`
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  margin-top: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 1vw;
+  img {
+    width: 80px;
+    border-radius: 5px;
+  }
+`;
+
+const WorkspaceTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  margin-top: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 1vw;
+  justify-content: space-between;
+
+  h5 {
+    display: flex;
+    flex-direction: column;
+    span {
+      color: gray;
+    }
+  }
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
 `;
 export default function PanelProfile(props) {
   const [newsItems, setNewsItems] = useState([]);
   const [showAddPopUp, setShowAddPopUp] = useState(false);
-
+  const [workspaces, setWorkspaces] = useState([]);
   const fetchNews = () => {
     const News = Parse.Object.extend("News");
     const query = new Parse.Query(News);
@@ -77,10 +126,33 @@ export default function PanelProfile(props) {
     const query = new Parse.Query(Parse.User);
     query.equalTo("type", "host");
     query.equalTo("creator", Parse.User.current());
-    query.find().then((res) => {});
+    query.find().then((res) => {
+      let items = [];
+
+      res.forEach((i) => {
+        i.get("creator").fetch();
+        items.push(
+          <WorkspaceItem>
+            <img src={i.get("image").url()} alt={i.get("firstName")} />
+            <WorkspaceTextContainer>
+              <h5>{i.get("firstName") + " " + i.get("lastName")}</h5>
+              <p>
+                {i.get("creator").get("firstName") +
+                  " " +
+                  i.get("creator").get("lastName")}
+              </p>
+            </WorkspaceTextContainer>
+          </WorkspaceItem>
+        );
+      });
+
+      setWorkspaces(items);
+    });
   };
+
   useEffect(() => {
     fetchNews();
+    fetchWorkspaces();
   }, []);
 
   return (
@@ -91,10 +163,31 @@ export default function PanelProfile(props) {
         {newsItems}
       </NotificationsContainer>
       <Container>
-        <UserData>
-          <p>asdfas</p>
-        </UserData>
-        <Workspaces></Workspaces>
+        <ProfileWrapper>
+          <WorkspaceTextContainer>
+            <h5>
+              {Parse.User.current().get("firstName") +
+                " " +
+                Parse.User.current().get("lastName")}
+
+              <span>@{Parse.User.current().get("username")} sadf</span>
+            </h5>
+
+            <p>{Parse.User.current().get("description")}</p>
+          </WorkspaceTextContainer>
+          <img
+            src={Parse.User.current().get("image").url()}
+            alt={
+              Parse.User.current().get("firstName") +
+              " " +
+              Parse.User.current().get("lastName")
+            }
+          />
+        </ProfileWrapper>
+        <Workspaces>
+          <h4> گروه های آموزشی ساخت شما</h4>
+          {workspaces}
+        </Workspaces>
       </Container>
       <PlusButton onClick={() => setShowAddPopUp(true)}>
         <Plus fill="white" width="30" />

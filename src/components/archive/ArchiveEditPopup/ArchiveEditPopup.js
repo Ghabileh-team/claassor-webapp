@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function ArchiveEditPopup() {
-    return (
-        <div>
-            
-        </div>
-    )
+  return <Container></Container>;
 }

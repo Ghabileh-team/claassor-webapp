@@ -94,7 +94,7 @@ const RightsideItems = styled.div`
   flex-wrap: wrap;
 `;
 
-export default function PanelArchiveWorkspaceArea() {
+export default function PanelArchiveWorkspaceArea(props) {
   const [items, setItems] = useState([]);
   const [workspace, setWorkspace] = useState();
 
@@ -111,10 +111,9 @@ export default function PanelArchiveWorkspaceArea() {
     query.equalTo("workspace", arg);
     trackPromise(
       query.find().then((res) => {
-        console.log(workspaceId);
         let items = [];
         res.forEach((i) => {
-          items.push(<ArchiveWorkspaceItem object={i} />);
+          items.push(<ArchiveWorkspaceItem popup={props.popup} object={i} />);
         });
         setItems(items);
       })
@@ -137,7 +136,6 @@ export default function PanelArchiveWorkspaceArea() {
   useEffect(() => {
     fetchWorkspaceItem(workspace);
   }, [workspace]);
-  console.log(workspaceId);
   return (
     <ThemeProvider theme={theme}>
       <Switch>

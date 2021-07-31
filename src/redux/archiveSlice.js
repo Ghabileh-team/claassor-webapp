@@ -24,6 +24,7 @@ export const archiveSlice = createSlice({
     archiveSession: {},
     isCreator: false,
     isAdmin: false,
+    editItem: "",
   },
   reducers: {
     updateWorkspace: (state, action) => {
@@ -44,6 +45,9 @@ export const archiveSlice = createSlice({
     updateIsAdmin: (state, action) => {
       state.isAdmin = action.payload;
     },
+    updateEditItem: (state, action) => {
+      state.editItem = action.payload;
+    },
   },
 });
 
@@ -54,6 +58,7 @@ export const {
   updateArchiveSession,
   updateIsAdmin,
   updateIsCreator,
+  updateEditItem,
 } = archiveSlice.actions;
 
 export const selectWorkspace = (state) => state.archive.workspace;
@@ -62,5 +67,6 @@ export const selectArchiveUnit = (state) => state.archive.archiveUnit;
 export const selectArchiveSession = (state) => state.archive.archiveSession;
 export const selectIsAdmin = (state) => state.archive.isAdmin;
 export const selectIsCreator = (state) => state.archive.isCreator;
+export const selectEditItem = (state) => state.archive.editItem;
 
 export default archiveSlice.reducer;

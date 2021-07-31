@@ -34,9 +34,9 @@ export default function PanelArchive(props) {
     const workspacesQuery = Parse.User.current().relation("workspaces").query();
     trackPromise(
       workspacesQuery.find().then((res) => {
+        console.log(res);
         let items = [];
         res.forEach((w) => {
-          w.fetch().then((res) => console.log(res));
           items.push(<ArchiveItem object={w} />);
         });
         setWorkspaces(items);

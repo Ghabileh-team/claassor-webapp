@@ -17,20 +17,20 @@ export default function Chapters(props) {
   const unit = useSelector(selectArchiveUnit);
 
   const label = useSelector(selectArchiveLabel);
-
+  const Labels = Parse.Object.extend("Labels");
+  const labelsQuery = new Parse.Query(Labels);
   const Container = styled(SimpleBar)`
     display: flex;
     height: 40vh;
     flex: 1;
     overflow-y: scroll;
   `;
-
-  const fetchUnits = () => {
+  const fetchUnits = (l) => {
     const Units = Parse.Object.extend("Units");
     const query = new Parse.Query(Units);
-    query.equalTo("label", label);
+    query.equalTo("label", l);
     query.find().then((res) => {
-      console.log(label);
+      console.log(res);
       let items = [];
       res.forEach((item) => {
         items.push(<ArchiveBoxComponent data={item} step={props.step} />);
@@ -71,7 +71,11 @@ export default function Chapters(props) {
 
   useEffect(() => {
     //   props.step === "unit" ?
-    fetchUnits();
+    labelsQuery.equalTo("objectId", label);
+    labelsQuery.first().then((obj) => {
+      fetchUnits(obj);
+    });
+
     // :
     if (props.step === "session") {
       fetchSessions();
