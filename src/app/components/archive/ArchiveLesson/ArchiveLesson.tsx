@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, useRouteMatch } from "react-router";
 import styled from "styled-components";
-import { PanelBox } from "../../../../styles/components";
-import profile from "../../../assets/Hajitoon.jpg";
+import { PanelBox } from "src/styles/components";
+import profile from "src/assets/Hajitoon.jpg";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
-import { ReactComponent as Plus } from "../../../assets/icons/Plus.svg";
-
+import { ReactComponent as Plus } from "assets/icons/Plus.svg";
 import ArchiveBoxComponent from "./ArchiveBoxComponent";
 import { useSelector } from "react-redux";
-import { selectArchiveLabel } from "../../../../redux/archiveSlice";
+import { selectArchiveLabel } from "redux/archiveSlice";
 import Chapters from "./Chapters";
-import { useEffect } from "react";
 
 const TopBar = styled.div`
   background-color: white;

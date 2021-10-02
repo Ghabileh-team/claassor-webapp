@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "esnext",
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -19,17 +19,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    //new stuff for parse platform
     "noImplicitAny": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "paths": {
-        "*": [
-            "node_modules/*",
-            "src/*"
-        ]
-    },
-    "sourceMap": false,
+    "sourceMap": false
   },
   "include": [
     "src"
