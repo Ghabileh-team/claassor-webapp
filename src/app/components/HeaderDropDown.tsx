@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactElement } from "react";
 import styled from "styled-components";
-
 import HeaderListItem from "./HeaderListItem";
+
 const Parse = require("parse");
 
 const Container = styled.div`
@@ -20,22 +20,25 @@ const List = styled.ul`
   box-shadow: 0px 0px 5px #6f6f6f;
 `;
 
-export default function HeaderDropDown(props) {
-  const [workspaces, setWorkspaces] = useState([]);
+interface Props {
+  show: boolean | undefined;
+}
+export default function HeaderDropDown(props: Props) : ReactElement {
+  const [workspaces, setWorkspaces] = useState<any>([]);
   const workspacesQuery = Parse.User.current().relation("workspaces").query();
 
-  const getWorkspaces = () => {
-    workspacesQuery.find().then((res) => {
-      let items = [];
-      res.forEach((w) => {
+  const getWorkspaces = ():void => {
+    workspacesQuery.find().then((res :any) => {
+      const items = [];
+      res.forEach((w:any) => {
         items.push(<HeaderListItem show={props.show} object={w} />);
       });
       items.push(
         <HeaderListItem
           show={props.show}
           object={Parse.User.current()}
-          ownWorkspace={true}
-        />
+          ownWorkspace
+        />,
       );
       setWorkspaces(items);
     });

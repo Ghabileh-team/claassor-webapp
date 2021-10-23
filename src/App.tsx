@@ -1,12 +1,11 @@
-import Home from "./app/pages/Home/Home";
-import "./App.css";
 import { HashRouter as Router, Route } from "react-router-dom";
-import Login from "./app/pages/Login/Signup/Login";
-import Schools from "./app/pages/schools/Schools";
+import Login from "./app/pages/Login/Signup";
+import Schools from "./app/pages/SchoolsPage/index.";
 
 import PanelMain from "./app/pages/PanelMain/PanelMain";
 import { ThemeConsumer, ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
+import Home from "./app/pages/Home";
 
 function App() {
   return (

@@ -3,12 +3,10 @@ import { Route, useRouteMatch } from "react-router";
 import styled from "styled-components";
 import { PanelBox } from "src/styles/components";
 import profile from "src/assets/Hajitoon.jpg";
-import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
-import { ReactComponent as Plus } from "assets/icons/Plus.svg";
-import ArchiveBoxComponent from "./ArchiveBoxComponent";
+import { ReactComponent as Plus } from "src/assets/icons/Plus.svg";
 import { useSelector } from "react-redux";
-import { selectArchiveLabel } from "redux/archiveSlice";
+import { selectArchiveLabel } from "src/redux/archiveSlice";
 import Chapters from "./Chapters";
 
 const TopBar = styled.div`
@@ -107,7 +105,7 @@ const Parse = require("parse");
 
 export default function ArchiveLesson() {
   const { url, path } = useRouteMatch();
-  const [label, setLabel] = useState();
+  const [label, setLabel] = useState<{ get: Function }>();
   const labelId = useSelector(selectArchiveLabel);
 
   useEffect(() => {
@@ -115,7 +113,7 @@ export default function ArchiveLesson() {
     const query = new Parse.Query(Labels);
     query.equalTo("objectId", labelId);
 
-    query.first().then((obj) => {
+    query.first().then((obj: any) => {
       setLabel(obj);
     });
   }, []);
@@ -128,7 +126,7 @@ export default function ArchiveLesson() {
               <span>معلم فیزیک</span>
             </h5>
             <h5>
-              <span>{label?.get("name")}</span> @Soltani3
+              <span>{label && label.get("name")}</span> @Soltani3
             </h5>
             <h5>
               وضعیت:

@@ -1,18 +1,10 @@
-import React, { useState } from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
-import {
-  PanelBigContainer,
-  PanelContainer,
-  PanelContentContainer,
-  PanelWindow,
-} from "../../styles/components";
+import { PanelContainer, PanelContentContainer } from "src/styles/components";
 
 import "swiper/swiper.scss";
-import PanelPackageInfo from "../components/PanelPackageInfo";
 import PanelTodayPlans from "../components/PanelTodayPlans";
-import PanelNav from "../components/PanelNav";
 import PanelDayItems from "../components/PanelDayItems";
-import PanelHeader from "../components/PanelHeader";
 import PanelNotification from "../components/PanelNotification";
 
 const PanelDashboardLeftColumn = styled.div`
@@ -22,9 +14,7 @@ const PanelDashboardLeftColumn = styled.div`
   }
 `;
 
-export default function PanelDashboard(props) {
-  const [showAddPopUp, setShowAddPopUp] = useState(false);
-
+export default function PanelDashboard(): ReactElement {
   return (
     <PanelContainer>
       <PanelDashboardLeftColumn>
@@ -33,7 +23,7 @@ export default function PanelDashboard(props) {
       </PanelDashboardLeftColumn>
       <PanelContentContainer>
         <PanelDayItems />
-        <PanelTodayPlans popup={setShowAddPopUp} />
+        <PanelTodayPlans />
       </PanelContentContainer>
     </PanelContainer>
   );

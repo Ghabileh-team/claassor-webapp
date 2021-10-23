@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import profile from "../../../assets/Hajitoon.jpg";
-import { ReactComponent as Edit } from "../../../assets/icons/Edit.svg";
-import { ReactComponent as Delete } from "../../../assets/icons/Delete.svg";
-import { StyledLink } from "../../../../styles/components";
+import { ReactComponent as Edit } from "src/assets/icons/Edit.svg";
+import { ReactComponent as Delete } from "src/assets/icons/Delete.svg";
+import { StyledLink } from "src/styles/components";
 import { useRouteMatch } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,7 +13,7 @@ import {
 } from "../../../../redux/archiveSlice";
 import { selectCurrentWorkspace } from "../../../../redux/globalValuesSlice";
 import DashboardAddPopUp from "../../Dashboard/DashboardAddPopUp";
-import { ReactComponent as Bookmark } from "../../../assets/icons/Bookmark.svg";
+import { ReactComponent as Bookmark } from "src/assets/icons/Bookmark.svg";
 
 const Parse = require("parse");
 
@@ -111,7 +110,7 @@ export default function ArchiveBoxComponent(props) {
     <Container onClick={onClickFunc}>
       {/* <DashboardAddPopUp /> */}
       <UserContianer>
-        {props.user ? <Image src={profile} /> : null}
+        {props.user ? <Image src="https://picsum.photos/200" /> : null}
         <StyledLink to={`${url}/${props.step}`}>
           <TextContainer>
             {props.user ? (

@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactElement } from "react";
 import styled from "styled-components";
-import PanelHeader from "../components/PanelHeader";
-import PanelNav from "../components/PanelNav";
-import {
-  PanelBigContainer,
-  PanelContainer,
-  PanelWindow,
-} from "../../styles/components";
-import { ReactComponent as BookmarkIcon } from "../assets/icons/Bookmark.svg";
-import NotificationItem from "../components/NotificationItem";
+
+import { PanelContainer } from "src/styles/components";
+import { ReactComponent as BookmarkIcon } from "src/assets/icons/Bookmark.svg";
+import NotificationItem from "src/app/components/NotificationItem";
 import { Route, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
-import Chapters from "../components/archive/ArchiveLesson/Chapters";
+import Chapters from "src/app/components/archive/ArchiveLesson/Chapters";
 import { trackPromise } from "react-promise-tracker";
-import LoadingIndicator from "../components/LoadingIndicator";
+import LoadingIndicator from "src/app/components/LoadingIndicator";
+
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -54,21 +50,21 @@ const LinkWrapper = styled(Link)`
 
 const Parse = require("parse");
 
-export default function PanelBookmarks() {
+export default function PanelBookmarks(): ReactElement {
   const [newsItems, setNewsItems] = useState([]);
   const { path, url } = useRouteMatch();
-  const fetchNews = () => {
-    const query = new Parse.User.current().relation("savedNews").query();
-    query.descending("createdAt");
-    trackPromise(
-      query.find().then((res) => {
-        const items = [];
-        res.forEach((n) => {
-          items.push(<NotificationItem object={n} big isBig={true} />);
-        });
-        setNewsItems(items);
-      })
-    );
+  const fetchNews = (): void => {
+    // const query = new Parse.User.current().relation("savedNews").query();
+    // query.descending("createdAt");
+    // trackPromise(
+    //   query.find().then((res) => {
+    //     const items = [];
+    //     res.forEach((n) => {
+    //       items.push(<NotificationItem object={n} big isBig />);
+    //     });
+    //     setNewsItems(items);
+    //   })
+    // );
   };
 
   useEffect(() => {

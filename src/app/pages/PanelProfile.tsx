@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactElement } from "react";
 import styled from "styled-components";
-import {
-  PanelBigContainer,
-  PanelContainer,
-  PanelWindow,
-} from "../../styles/components";
-import { ReactComponent as Plus } from "../assets/icons/Plus.svg";
+import { PanelContainer } from "src/styles/components";
+import { ReactComponent as Plus } from "src/assets/icons/Plus.svg";
 import "swiper/swiper.scss";
-import NotificationItem from "../components/NotificationItem";
-import PanelNav from "../components/PanelNav";
-import PanelHeader from "../components/PanelHeader";
-import DashboardAddPopUp from "../components/Dashboard/DashboardAddPopUp";
+import NotificationItem from "src/app/components/NotificationItem";
+import DashboardAddPopUp from "src/app/components/Dashboard/DashboardAddPopUp";
+
 const Parse = require("parse");
 
 const NotificationsContainer = styled(PanelContainer)`
@@ -35,15 +30,15 @@ const Container = styled.div`
   margin-right: 2vw;
 `;
 
-const UserData = styled.div`
-  box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  height: 200px;
-  background-color: white;
-  border-radius: 20px;
-  padding: 1vw;
-  margin-top: 2vw;
-`;
+// const UserData = styled.div`
+//   box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
+//   width: 100%;
+//   height: 200px;
+//   background-color: white;
+//   border-radius: 20px;
+//   padding: 1vw;
+//   margin-top: 2vw;
+// `;
 
 const Workspaces = styled.div`
   box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.15);
@@ -103,18 +98,18 @@ const ProfileWrapper = styled.div`
     object-fit: cover;
   }
 `;
-export default function PanelProfile(props) {
-  const [newsItems, setNewsItems] = useState([]);
+export default function PanelProfile(): ReactElement {
+  const [newsItems, setNewsItems] = useState<any>([]);
   const [showAddPopUp, setShowAddPopUp] = useState(false);
   const [workspaces, setWorkspaces] = useState([]);
-  const fetchNews = () => {
+  const fetchNews = (): void => {
     const News = Parse.Object.extend("News");
     const query = new Parse.Query(News);
     query.descending("createdAt");
     query.equalTo("sender", Parse.User.current());
-    query.find().then((res) => {
-      const items = [];
-      res.forEach((n) => {
+    query.find().then((res: any) => {
+      const items: any = [];
+      res.forEach((n: any) => {
         items.push(<NotificationItem object={n} big isBig={true} />);
       });
       setNewsItems(items);
@@ -125,20 +120,20 @@ export default function PanelProfile(props) {
     const query = new Parse.Query(Parse.User);
     query.equalTo("type", "host");
     query.equalTo("creator", Parse.User.current());
-    query.find().then((res) => {
-      let items = [];
+    query.find().then((res: any) => {
+      const items: any = [];
 
-      res.forEach((i) => {
+      res.forEach((i: any) => {
         i.get("creator").fetch();
         items.push(
           <WorkspaceItem>
             <img src={i.get("image").url()} alt={i.get("firstName")} />
             <WorkspaceTextContainer>
-              <h5>{i.get("firstName") + " " + i.get("lastName")}</h5>
+              <h5>{`${i.get("firstName")} ${i.get("lastName")}`}</h5>
               <p>
-                {i.get("creator").get("firstName") +
-                  " " +
-                  i.get("creator").get("lastName")}
+                {`${i.get("creator").get("firstName")} ${i
+                  .get("creator")
+                  .get("lastName")}`}
               </p>
             </WorkspaceTextContainer>
           </WorkspaceItem>
@@ -165,22 +160,20 @@ export default function PanelProfile(props) {
         <ProfileWrapper>
           <WorkspaceTextContainer>
             <h5>
-              {Parse.User.current().get("firstName") +
-                " " +
-                Parse.User.current().get("lastName")}
+              {`${Parse.User.current().get(
+                "firstName"
+              )} ${Parse.User.current().get("lastName")}`}
 
-              <span>@{Parse.User.current().get("username")} sadf</span>
+              <span>{`@${Parse.User.current().get("username")} sadf`}</span>
             </h5>
 
             <p>{Parse.User.current().get("description")}</p>
           </WorkspaceTextContainer>
           <img
             src={Parse.User.current().get("image").url()}
-            alt={
-              Parse.User.current().get("firstName") +
-              " " +
-              Parse.User.current().get("lastName")
-            }
+            alt={`${Parse.User.current().get(
+              "firstName"
+            )} ${Parse.User.current().get("lastName")}`}
           />
         </ProfileWrapper>
         <Workspaces>

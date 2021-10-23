@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { PanelBox } from "../../styles/components";
-import claassorLogo from "../assets/2.png";
-import { ReactComponent as Triangle } from "../assets/icons/triangle.svg";
+import { PanelBox } from "src/styles/components";
+import claassorLogo from "src/assets/2.png";
+import { ReactComponent as Triangle } from "src/assets/icons/triangle.svg";
 import HeaderDropDown from "./HeaderDropDown";
 import HeaderListItem from "./HeaderListItem";
 const PanelHeaderContainer = styled(PanelBox)`

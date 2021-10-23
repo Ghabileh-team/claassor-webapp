@@ -4,13 +4,13 @@ import {
   PanelBigContainer,
   PanelContainer,
   PanelWindow,
-} from "../../../styles/components";
-import { ReactComponent as Plus } from "../../assets/icons/Plus.svg";
+} from "src/styles/components";
+import { ReactComponent as Plus } from "src/assets/icons/Plus.svg";
 import "swiper/swiper.scss";
-import NotificationItem from "../../components/NotificationItem";
-import PanelNav from "../../components/PanelNav";
-import PanelHeader from "../../components/PanelHeader";
-import DashboardAddPopUp from "../../components/Dashboard/DashboardAddPopUp";
+import NotificationItem from "src/app/components/NotificationItem";
+import PanelNav from "src/app/components/PanelNav";
+import PanelHeader from "src/app/components/PanelHeader";
+import DashboardAddPopUp from "src/app/components/Dashboard/DashboardAddPopUp";
 import { Route, useRouteMatch } from "react-router";
 import PanelNotificaions from "../PanelNotifications";
 import PanelDashboard from "../PanelDashboard";
@@ -21,7 +21,7 @@ import { useSelector } from "react-redux";
 import {
   selectShowPopup,
   selectShowPopupArchive,
-} from "../../../redux/globalValuesSlice";
+} from "src/redux/globalValuesSlice";
 
 const Parse = require("parse");
 

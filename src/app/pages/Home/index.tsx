@@ -6,10 +6,10 @@ import {
   Example,
   Backgound,
   Text,
-} from "../../../styles/components";
-import image1 from "../../assets/showcase1.png";
-import image2 from "../../assets/showcase2.png";
-import Header from "../../components/Header";
+} from "src/styles/components";
+import image1 from "src/assets/showcase1.png";
+import image2 from "src/assets/showcase2.png";
+import Header from "src/app/components/Header";
 
 export default function Home() {
   return (

@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
-import hajitoon from "../../../assets/Hajitoon.jpg";
-import { ReactComponent as Notification } from "../../../assets/icons/Notification.svg";
-import { ReactComponent as Users } from "../../../assets/icons/Users.svg";
-import { ReactComponent as Ticket } from "../../../assets/icons/Ticket.svg";
-import { ReactComponent as Edit } from "../../../assets/icons/Edit.svg";
-import { ReactComponent as Arrow } from "../../../assets/icons/Arrow.svg";
+import hajitoon from "src/assets/Hajitoon.jpg";
+import { ReactComponent as Notification } from "src/assets/icons/Notification.svg";
+import { ReactComponent as Users } from "src/assets/icons/Users.svg";
+import { ReactComponent as Ticket } from "src/assets/icons/Ticket.svg";
+import { ReactComponent as Edit } from "src/assets/icons/Edit.svg";
+import { ReactComponent as Arrow } from "src/assets/icons/Arrow.svg";
 
 import { useSelector } from "react-redux";
 import { selectIsAdmin, selectIsCreator } from "../../../../redux/archiveSlice";

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { PanelBox, StyledLink } from "../../../styles/components";
-import { ReactComponent as Delete } from "../../assets/icons/Delete.svg";
-import userIcon from "../../assets/Hajitoon.jpg";
-import { ReactComponent as Edit } from "../../assets/icons/Edit.svg";
-import { ReactComponent as AddUser } from "../../assets/icons/Add-user.svg";
-import { ReactComponent as DeleteUser } from "../../assets/icons/Delete-user.svg";
+import { PanelBox, StyledLink } from "src/styles/components";
+import { ReactComponent as Delete } from "src/assets/icons/Delete.svg";
+import userIcon from "src/assets/Hajitoon.jpg";
+import { ReactComponent as Edit } from "src/assets/icons/Edit.svg";
+import { ReactComponent as AddUser } from "src/assets/icons/Add-user.svg";
+import { ReactComponent as DeleteUser } from "src/assets/icons/Delete-user.svg";
 import { useHistory, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +13,8 @@ import {
   selectIsAdmin,
   selectIsCreator,
   updateArchiveLabel,
-} from "../../../redux/archiveSlice";
-import { updateShowPopupArchive } from "../../../redux/globalValuesSlice";
+} from "src/redux/archiveSlice";
+import { updateShowPopupArchive } from "src/redux/globalValuesSlice";
 const Container = styled(PanelBox)`
   padding: 0;
   display: grid;

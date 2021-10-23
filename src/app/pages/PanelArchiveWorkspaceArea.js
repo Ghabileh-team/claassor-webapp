@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import profile from "../assets/Hajitoon.jpg";
-import { ReactComponent as Notification } from "../assets/icons/Notification.svg";
-import { ReactComponent as Users } from "../assets/icons/Users.svg";
-import { ReactComponent as Ticket } from "../assets/icons/Ticket.svg";
-import { ReactComponent as Edit } from "../assets/icons/Edit.svg";
-import { PanelBox } from "../../styles/components";
-import ArchiveWorkspaceItem from "../components/archive/ArchiveWorkspaceItem";
+import { ReactComponent as Notification } from "src/assets/icons/Notification.svg";
+import { ReactComponent as Users } from "src/assets/icons/Users.svg";
+import { ReactComponent as Ticket } from "src/assets/icons/Ticket.svg";
+import { ReactComponent as Edit } from "src/assets/icons/Edit.svg";
+import { PanelBox } from "src/styles/components";
+import ArchiveWorkspaceItem from "src/app/components/archive/ArchiveWorkspaceItem";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
-import ArchiveUsers from "../components/archive/ArchiveUsers";
-import PanelNotification from "../components/PanelNotification";
-import ArchiveLesson from "../components/archive/ArchiveLesson/ArchiveLesson";
+import ArchiveUsers from "src/app/components/archive/ArchiveUsers";
+import PanelNotification from "src/app/components/PanelNotification";
+import ArchiveLesson from "src/app/components/archive/ArchiveLesson/ArchiveLesson";
 import { useSelector } from "react-redux";
 import {
   selectIsAdmin,
   selectIsCreator,
   selectWorkspace,
-} from "../../redux/archiveSlice";
-import ContentContainer from "../components/archive/ContentContainer/index";
+} from "src/redux/archiveSlice";
+import ContentContainer from "src/app/components/archive/ContentContainer/index";
 import { trackPromise } from "react-promise-tracker";
 const Parse = require("parse");
 

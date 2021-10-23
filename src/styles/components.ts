@@ -13,33 +13,29 @@ export const Button = styled.button<ButtonProps>`
   display: inline-block;
   border-radius: 5px;
   border: 2px solid
-    ${(props) =>
-      props.light
-        ? props.theme.light
-        : props.transparent
+    ${(p) =>
+      p.light
+        ? p.theme.light
+        : p.transparent
         ? "transparent"
-        : props.gray
-        ? props.theme.gray
-        : props.theme.main};
+        : p.gray
+        ? p.theme.gray
+        : p.theme.main};
   margin: 0.5em 1em;
   padding: 0.25em 1em;
-  margin-top: ${(props) => (props.li ? "0.75em" : null)};
-  background-color: ${(props) =>
-    props.light
-      ? props.theme.main
-      : props.transparent
+  margin-top: ${(p) => (p.li ? "0.75em" : null)};
+  background-color: ${(p) =>
+    p.light
+      ? p.theme.main
+      : p.transparent
       ? "transparent"
-      : props.blue
-      ? props.theme.blue
-      : props.gray
-      ? props.theme.gray
-      : props.theme.light};
-  color: ${(props) =>
-    props.light || props.transparent
-      ? "#ffffff"
-      : props.lightText
-      ? "#fff"
-      : "#000000"};
+      : p.blue
+      ? p.theme.blue
+      : p.gray
+      ? p.theme.gray
+      : p.theme.light};
+  color: ${(p) =>
+    p.light || p.transparent ? "#ffffff" : p.lightText ? "#fff" : "#000000"};
   font-size: 1em;
   outline: none;
   transition: 0.3s ease-out;
@@ -47,13 +43,10 @@ export const Button = styled.button<ButtonProps>`
   font-family: "Kalameh-bold";
   &:hover {
     transition: 0.3s ease-out;
-    background-color: ${(props) =>
-      props.light ? props.theme.light : props.theme.main};
-    color: ${(props) => (props.light ? props.theme.main : props.theme.light)};
-    border: 2px solid
-      ${(props) => (props.light ? props.theme.main : props.theme.light)};
-    box-shadow: 0 0 5px
-      ${(props) => (props.light ? props.theme.main : props.theme.light)};
+    background-color: ${(p) => (p.light ? p.theme.light : p.theme.main)};
+    color: ${(p) => (p.light ? p.theme.main : p.theme.light)};
+    border: 2px solid ${(p) => (p.light ? p.theme.main : p.theme.light)};
+    box-shadow: 0 0 5px ${(p) => (p.light ? p.theme.main : p.theme.light)};
   }
 `;
 
@@ -132,27 +125,26 @@ interface CircleProps {
   light?: boolean;
 }
 export const Circle = styled.div<CircleProps>`
-  width: ${(props) => (props.big ? "50vh" : props.medium ? "35vh" : "20vh")};
-  height: ${(props) => (props.big ? "50vh" : props.medium ? "35vh" : "20vh")};
+  width: ${(p) => (p.big ? "50vh" : p.medium ? "35vh" : "20vh")};
+  height: ${(p) => (p.big ? "50vh" : p.medium ? "35vh" : "20vh")};
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  background-color: ${(props) =>
-    props.light ? props.theme.main : props.theme.light};
+  background-color: ${(p) => (p.light ? p.theme.main : p.theme.light)};
   position: absolute;
-  right: ${(props) =>
-    props.light
-      ? props.big
+  right: ${(p) =>
+    p.light
+      ? p.big
         ? "-3%"
-        : props.medium
+        : p.medium
         ? "-5%"
         : "0%"
-      : props.big
+      : p.big
       ? "60%"
-      : props.medium
+      : p.medium
       ? "58%"
       : "63%"};
-  top: ${(props) => (props.big ? "50%" : props.medium ? "70%" : "30%")};
-  opacity: ${(props) => (props.big ? "0.7" : props.medium ? "0.5" : "1")};
+  top: ${(p) => (p.big ? "50%" : p.medium ? "70%" : "30%")};
+  opacity: ${(p) => (p.big ? "0.7" : p.medium ? "0.5" : "1")};
 `;
 
 interface TextProps {

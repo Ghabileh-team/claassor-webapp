@@ -61,12 +61,13 @@ export const {
   updateEditItem,
 } = archiveSlice.actions;
 
-export const selectWorkspace = (state) => state.archive.workspace;
-export const selectArchiveLabel = (state) => state.archive.archiveLabel;
-export const selectArchiveUnit = (state) => state.archive.archiveUnit;
-export const selectArchiveSession = (state) => state.archive.archiveSession;
-export const selectIsAdmin = (state) => state.archive.isAdmin;
-export const selectIsCreator = (state) => state.archive.isCreator;
-export const selectEditItem = (state) => state.archive.editItem;
+export const selectWorkspace = (state: any) => state.archive.workspace;
+export const selectArchiveLabel = (state: any) => state.archive.archiveLabel;
+export const selectArchiveUnit = (state: any) => state.archive.archiveUnit;
+export const selectArchiveSession = (state: any) =>
+  state.archive.archiveSession;
+export const selectIsAdmin = (state: any) => state.archive.isAdmin;
+export const selectIsCreator = (state: any) => state.archive.isCreator;
+export const selectEditItem = (state: any) => state.archive.editItem;
 
 export default archiveSlice.reducer;

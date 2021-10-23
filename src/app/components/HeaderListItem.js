@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Image from "../assets/Hajitoon.jpg";
+import Image from "src/assets/Hajitoon.jpg";
 
-import { ReactComponent as Ticket } from "../assets/icons/Ticket.svg";
-import { ReactComponent as Logout } from "../assets/icons/Logout.svg";
+import { ReactComponent as Ticket } from "src/assets/icons/Ticket.svg";
+import { ReactComponent as Logout } from "src/assets/icons/Logout.svg";
 import { useDispatch } from "react-redux";
-import { updateCurrentWorkspace } from "../../redux/globalValuesSlice";
-import { updateIsAdmin, updateIsCreator } from "../../redux/archiveSlice";
+import { updateCurrentWorkspace } from "src/redux/globalValuesSlice";
+import { updateIsAdmin, updateIsCreator } from "src/redux/archiveSlice";
 
 const Parse = require("parse");
 

@@ -1,17 +1,16 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import styled from "styled-components";
-import ArchiveItem from "../components/archive/ArchiveItem";
-import PanelHeader from "../components/PanelHeader";
-import PanelNav from "../components/PanelNav";
-import StopWatch from "../components/StopWatch";
+import PanelHeader from "src/app/components/PanelHeader";
+import PanelNav from "src/styles/components/PanelNav";
+import StopWatch from "src/app/components/StopWatch";
 import {
   PanelBigContainer,
   PanelBox,
   PanelContainer,
   PanelContentContainer,
   PanelWindow,
-} from "../../styles/components";
+} from "src/styles/components";
 
 const TopBar = styled.div`
   background: transparent;
@@ -44,7 +43,7 @@ const ChartContainer = styled.div`
   }
 `;
 
-export default function PanelPlans() {
+export default function PanelPlans(): ReactElement {
   const shiftSize = 7;
 
   return (

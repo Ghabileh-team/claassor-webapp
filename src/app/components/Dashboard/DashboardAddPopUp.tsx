@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import closeIcon from "../../assets/icons/Close.svg";
-import imageIcon from "../../assets/icons/Image.svg";
-import folderIcon from "../../assets/icons/Folder.svg";
+import closeIcon from "src/assets/icons/Close.svg";
+import imageIcon from "src/assets/icons/Image.svg";
+import folderIcon from "src/assets/icons/Folder.svg";
 import Swal from "sweetalert2";
-import { Button, Icon } from "../../../styles/components";
+import { Button, Icon } from "src/styles/components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCurrentWorkspace,
   updateShowPopupArchive,
-} from "../../../redux/globalValuesSlice";
-import { selectEditItem } from "../../../redux/archiveSlice";
+} from "src/redux/globalValuesSlice";
+import { selectEditItem } from "src/redux/archiveSlice";
 
 const Container = styled.div`
   position: absolute;
@@ -77,9 +77,12 @@ const Parse = require("parse");
 const News = Parse.Object.extend("News");
 const query = new News();
 
-export default function DashboardAddPopUp(props) {
+interface Props {
+  popup: Function;
+}
+export default function DashboardAddPopUp(props: Props) {
   const [text, setText] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState<{ name: string }>();
   const [file, setFile] = useState();
   const dispatch = useDispatch();
   const workspace = useSelector(selectCurrentWorkspace);
@@ -107,9 +110,7 @@ export default function DashboardAddPopUp(props) {
   const imageBtn = useRef(null);
   const fileBtn = useRef(null);
 
-  const editObj = () => {
-    //
-  };
+  const editObj = () => {};
 
   const handleImageBtn = () => {
     imageBtn.current.click();

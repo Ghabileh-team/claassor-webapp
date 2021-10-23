@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { ReactComponent as Heart } from "../assets/icons/Heart.svg";
-import { ReactComponent as Bookmark } from "../assets/icons/Bookmark.svg";
-import { ReactComponent as Chat } from "../assets/icons/Chat.svg";
+import { ReactComponent as Heart } from "src/assets/icons/Heart.svg";
+import { ReactComponent as Bookmark } from "src/assets/icons/Bookmark.svg";
+import { ReactComponent as Chat } from "src/assets/icons/Chat.svg";
 import { trackPromise } from "react-promise-tracker";
 import LoadingIndicator from "./LoadingIndicator";
 import Comment from "./Comment/Comment";

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { PanelBox } from "../../styles/components";
-import DayItem from "./DayItem";
-import { ReactComponent as CalenadarSVG } from "../assets/icons/Calendar.svg";
+import { PanelBox } from "src/styles/components";
+import DayItem from "./DayItem/inedex";
+import { ReactComponent as CalenadarSVG } from "src/assets/icons/Calendar.svg";
 import NoteItem from "./NoteItem";
 import { trackPromise } from "react-promise-tracker";
 import LoadingIndicator from "./LoadingIndicator";

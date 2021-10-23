@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { PanelBox, PanelContainer } from "../../styles/components";
+import { PanelBox, PanelContainer } from "src/styles/components";
 
 import "swiper/swiper.scss";
 
 import { Route, useRouteMatch } from "react-router";
-import PanelArchiveWorkspaceArea from "./PanelArchiveWorkspaceArea";
-import ArchiveItem from "../components/archive/ArchiveItem";
+import ArchiveItem from "src/app/components/archive/ArchiveItem";
 import { trackPromise } from "react-promise-tracker";
-import LoadingIndicator from "../components/LoadingIndicator";
+import LoadingIndicator from "src/app/components/LoadingIndicator";
+import PanelArchiveWorkspaceArea from "./PanelArchiveWorkspaceArea";
+
 const Parse = require("parse");
 
 const ArchiveContainer = styled(PanelBox)`
@@ -27,18 +28,18 @@ const LeftBottom = styled.div`
 `;
 
 interface Props {}
-export default function PanelArchive(props: Props) {
-  const [workspaces, setWorkspaces] = useState([]);
-  let { path, url } = useRouteMatch();
+export default function PanelArchive(props: Props): ReactElement {
+  const [workspaces, setWorkspaces] = useState<any>([]);
+  const { path, url } = useRouteMatch();
 
-  const fetchWorkspaces = () => {
+  const fetchWorkspaces = (): void => {
     const workspacesQuery = Parse.User.current().relation("workspaces").query();
 
     trackPromise(
-      workspacesQuery.find().then((res) => {
+      workspacesQuery.find().then((res: any) => {
         console.log(res);
-        let items = [];
-        res.forEach((w) => {
+        const items: any = [];
+        res.forEach((w: any) => {
           items.push(<ArchiveItem object={w} />);
         });
         setWorkspaces(items);
@@ -56,7 +57,8 @@ export default function PanelArchive(props: Props) {
       </Route>
       <Route exact path={path}>
         <ArchiveContainer>
-          <LoadingIndicator /> {workspaces}
+          <LoadingIndicator />
+          {workspaces}
         </ArchiveContainer>
       </Route>
     </PanelContainer>

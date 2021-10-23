@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { SwiperSlide } from "swiper/react";
-import { ReactComponent as FileIcon } from "../../../assets/icons/FileDownload.svg";
+import { ReactComponent as FileIcon } from "src/assets/icons/FileDownload.svg";
 const Container = styled.div`
   background-color: white;
   border-radius: 10px;

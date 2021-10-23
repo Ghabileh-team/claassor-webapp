@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { PanelContainer } from "../../styles/components";
-import { ReactComponent as Plus } from "../assets/icons/Plus.svg";
+import { PanelContainer } from "src/styles/components";
+import { ReactComponent as Plus } from "src/assets/icons/Plus.svg";
 import "swiper/swiper.scss";
-import NotificationItem from "../components/NotificationItem";
-import DashboardAddPopUp from "../components/Dashboard/DashboardAddPopUp";
+import NotificationItem from "src/app/components/NotificationItem";
+import DashboardAddPopUp from "src/app/components/Dashboard/DashboardAddPopUp";
 import {
   selectIsAdmin,
   selectIsCreator,
   selectWorkspace,
   updateWorkspace,
-} from "../../redux/archiveSlice";
+} from "src/redux/archiveSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectCurrentWorkspace } from "../../redux/globalValuesSlice";
-import LoadingIndicator from "../components/LoadingIndicator";
+import { selectCurrentWorkspace } from "src/redux/globalValuesSlice";
+import LoadingIndicator from "src/app/components/LoadingIndicator";
 import { trackPromise } from "react-promise-tracker";
 const Parse = require("parse");
 
