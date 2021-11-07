@@ -2,7 +2,6 @@ import React, { ReactElement } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import styled from "styled-components";
 import PanelHeader from "src/app/components/PanelHeader";
-import PanelNav from "src/styles/components/PanelNav";
 import StopWatch from "src/app/components/StopWatch";
 import {
   PanelBigContainer,
@@ -11,6 +10,7 @@ import {
   PanelContentContainer,
   PanelWindow,
 } from "src/styles/components";
+import PanelNav from "../components/PanelNav";
 
 const TopBar = styled.div`
   background: transparent;
@@ -85,7 +85,7 @@ export default function PanelPlans(): ReactElement {
             </TopBar>
           </PanelContentContainer>
         </PanelContainer>
-        <PanelNav plans />
+        <PanelNav />
       </PanelBigContainer>
     </PanelWindow>
   );

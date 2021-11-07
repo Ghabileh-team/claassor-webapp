@@ -26,8 +26,8 @@ export const Container = styled.div<ContainerProps>`
 `;
 
 interface CircleProps {
-  big: boolean;
-  medium: boolean;
+  big?: boolean;
+  medium?: boolean;
   active: boolean;
 }
 export const Circle = styled.div<CircleProps>`

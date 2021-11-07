@@ -79,6 +79,7 @@ const query = new News();
 
 interface Props {
   popup: Function;
+  primary?: boolean;
 }
 export default function DashboardAddPopUp(props: Props) {
   const [text, setText] = useState("");
@@ -107,26 +108,26 @@ export default function DashboardAddPopUp(props: Props) {
     );
   };
 
-  const imageBtn = useRef(null);
-  const fileBtn = useRef(null);
+  const imageBtn: any = useRef(null);
+  const fileBtn: any = useRef(null);
 
   const editObj = () => {};
 
   const handleImageBtn = () => {
-    imageBtn.current.click();
+    imageBtn?.current?.click();
   };
   const handleFileBtn = () => {
-    fileBtn.current.click();
+    fileBtn?.current?.click();
   };
 
-  const handleImageSelect = (event) => {
+  const handleImageSelect = (event: any) => {
     const selectedImage = event.target.files[0];
     setImage(selectedImage);
     // if (file.type === "image/jpeg" || "image/jpg" || "image/png") {
     //   setImage(URL.createObjectURL(fileUploaded));
     // }
   };
-  const handleFileSelect = (event) => {
+  const handleFileSelect = (event: any) => {
     const selectedFile = event.target.files[0];
     console.log(selectedFile);
     setFile(selectedFile);

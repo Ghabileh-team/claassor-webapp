@@ -23,10 +23,11 @@ const userLogout = (): void => {
 };
 
 interface Props {
-  dashboard: boolean;
-  archive: string;
-  bookmarks: string;
-  notifications: string;
+  dashboard?: boolean;
+  archive?: string;
+  bookmarks?: string;
+  notifications?: string;
+  plans?: string;
 }
 export default function PanelNav({
   dashboard,
@@ -40,17 +41,14 @@ export default function PanelNav({
     <NavContainer>
       <ul>
         <li>
-          <NavLink
-            className={path === "/users" ? "selected" : null}
-            to="/users"
-          >
+          <NavLink className={path === "/users" ? "selected" : ""} to="/users">
             پنل کاربری
             <HomeIcon stroke={dashboard ? "white" : "#A7A7A7"} width="25" />
           </NavLink>
         </li>
         <li>
           <NavLink
-            className={path === "/users/notifications" ? "selected" : null}
+            className={path === "/users/notifications" ? "selected" : ""}
             to="/users/notifications"
           >
             اعلانات
@@ -62,7 +60,7 @@ export default function PanelNav({
         </li>
         <li>
           <NavLink
-            className={path.includes("/users/archive") ? "selected" : null}
+            className={path.includes("/users/archive") ? "selected" : ""}
             to="/users/archive"
           >
             آرشیو
@@ -72,7 +70,7 @@ export default function PanelNav({
 
         <li>
           <NavLink
-            className={path === "/users/bookmarks" ? "selected" : null}
+            className={path === "/users/bookmarks" ? "selected" : ""}
             to="/users/bookmarks"
           >
             اندوخته
@@ -82,7 +80,7 @@ export default function PanelNav({
 
         <li>
           <NavLink
-            className={path === "/users/profile" ? "selected" : null}
+            className={path === "/users/profile" ? "selected" : ""}
             to="/users/profile"
           >
             پروفایل

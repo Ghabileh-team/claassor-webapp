@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import userProfile from "src/assets/Hajitoon.jpg";
-import { Circle, Container, ProfileImg, Top } from "./styles";
+import { Bottom, Center, Circle, Container, ProfileImg, Top } from "./styles";
 import { JsxElement } from "typescript";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
   object: {
     tname: string;
     time: string;
+    link: string;
   };
 }
 export default function DayItem({ active, object }: Props) {
